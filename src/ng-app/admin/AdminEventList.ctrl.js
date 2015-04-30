@@ -41,12 +41,9 @@
 		 * Show Admin Events UI
 		 * Display list of events
 		 *
-		 * @param data {Array} promise provided by $http success
 		 * @private
 		 */
-		function _getAllEventsSuccess(data) {
-			console.log(aEvt.events);
-
+		function _getAllEventsSuccess() {
 			aEvt.eventsReady = true;
 		}
 

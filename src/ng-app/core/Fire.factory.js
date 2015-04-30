@@ -31,8 +31,23 @@
 			return $firebaseObject(_ref);
 		}
 
+		/**
+		 * Fetch Firebase Events
+		 *
+		 * @returns {object} Firebase array
+		 */
 		function events() {
 			var _ref = new Firebase(uri + 'events');
+			return $firebaseArray(_ref);
+		}
+
+		/**
+		 * Fetch Firebase RSVPs
+		 *
+		 * @returns {object} Firebase array
+		 */
+		function rsvps() {
+			var _ref = new Firebase(uri + 'rsvps');
 			return $firebaseArray(_ref);
 		}
 
@@ -41,7 +56,8 @@
 			ref: ref,
 			auth: auth,
 			data: data,
-			events: events
+			events: events,
+			rsvps: rsvps
 		}
 	}
 })();

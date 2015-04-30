@@ -5,9 +5,9 @@
 		.module('myApp')
 		.directive('eventForm', eventForm);
 
-	eventForm.$inject = ['Fire', 'Utils', '$timeout', '$location', '$filter', 'Event'];
+	eventForm.$inject = ['Fire', '$timeout', '$location', '$filter', 'Event'];
 
-	function eventForm(Fire, Utils, $timeout, $location, $filter, Event) {
+	function eventForm(Fire, $timeout, $location, $filter, Event) {
 
 		eventFormCtrl.$inject = ['$scope'];
 
@@ -86,8 +86,6 @@
 			 * @private
 			 */
 			function _eventSuccess(ref) {
-				console.log('added record with id ', ref.key());
-
 				ef.btnSaved = true;
 				ef.btnSubmitText = _isCreate ? 'Saved!' : 'Updated!';
 

@@ -5,9 +5,9 @@
 		.module('myApp')
 		.directive('rsvpForm', rsvpForm);
 
-	rsvpForm.$inject = ['rsvpData', '$timeout', '$rootScope'];
+	rsvpForm.$inject = ['Fire', '$timeout', '$rootScope'];
 
-	function rsvpForm(rsvpData, $timeout, $rootScope) {
+	function rsvpForm(Fire, $timeout, $rootScope) {
 
 		rsvpFormCtrl.$inject = ['$scope'];
 
@@ -18,6 +18,8 @@
 			// check if form is create or edit (does the model already exist or not)
 			var _isCreate = !rf.formModel,
 				_isEdit = !!rf.formModel;
+
+			var rsvps = Fire.rsvps();
 
 			rf.numberRegex = /^([1-9]|10)$/;
 
@@ -109,10 +111,12 @@
 				rf.btnSubmitText = 'Sending...';
 
 				if (_isCreate) {
-					rsvpData.createRsvp(rf.event._id, rf.formModel).then(_rsvpSuccess, _rsvpError);
+					rsvps.$add(rf.formModel).then(_rsvpSuccess, _rsvpError);
 
 				} else if (_isEdit) {
-					rsvpData.updateRsvp(rf.formModel._id, rf.formModel).then(_rsvpSuccess, _rsvpError);
+					//TODO: https://www.firebase.com/docs/web/libraries/angular/api.html#angularfire-firebasearray-saverecordorindex
+					//rsvps.$save()
+					//rsvpData.updateRsvp(rf.formModel._id, rf.formModel).then(_rsvpSuccess, _rsvpError);
 				}
 			};
 
