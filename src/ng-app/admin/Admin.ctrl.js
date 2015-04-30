@@ -5,11 +5,32 @@
 		.module('myApp')
 		.controller('AdminCtrl', AdminCtrl);
 
-	AdminCtrl.$inject = ['$scope', '$location', '$auth', 'userData', 'User', 'rsvpData'];
+	AdminCtrl.$inject = ['$scope', '$location', 'Fire', 'rsvpData'];
 
-	function AdminCtrl($scope, $location, $auth, userData, User, rsvpData) {
+	function AdminCtrl($scope, $location, Fire, rsvpData) {
 		// controllerAs ViewModel
 		var admin = this;
+
+		// authentication controls
+		var _auth = Fire.auth();
+
+		// get data from the database
+		admin.data = Fire.data();
+
+		/**
+		 * Success function from authenticating
+		 *
+		 * @param authData {object}
+		 */
+		function _getAuthData(authData) {
+			admin.user = authData;
+			admin.isAuthenticated = !!admin.user;
+		}
+
+		// on login or logout
+		_auth.$onAuth(_getAuthData);
+
+
 
 		// verify that user is admin
 		userData.getUser().then(function(data) {
@@ -19,15 +40,6 @@
 				admin.showAdmin = true;
 			}
 		});
-
-		/**
-		 * Determines if the user is authenticated
-		 *
-		 * @returns {boolean}
-		 */
-		admin.isAuthenticated = function() {
-			return $auth.isAuthenticated();
-		};
 
 		var _tab = $location.search().view;
 
@@ -39,10 +51,6 @@
 			{
 				name: 'Add Event',
 				query: 'add-event'
-			},
-			{
-				name: 'Users',
-				query: 'users'
 			}
 		];
 

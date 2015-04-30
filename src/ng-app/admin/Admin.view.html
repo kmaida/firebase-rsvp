@@ -3,7 +3,7 @@
 
 		<h1 class="content-heading">Admin</h1>
 
-		<div ng-if="admin.isAuthenticated() && admin.showAdmin">
+		<div ng-if="admin.isAuthenticated && admin.showAdmin">
 
 			<ul class="nav nav-tabs adminTabs">
 				<li ng-repeat="tab in admin.tabs" role="presentation" ng-class="{active: admin.currentTab === tab.query}">

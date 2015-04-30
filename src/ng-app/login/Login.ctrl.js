@@ -14,6 +14,12 @@
 		// Firebase authentication
 		var _auth = Fire.auth();
 
+		var _loggedIn = Fire.ref.getAuth();
+
+		if (_loggedIn) {
+			$location.path('/');
+		}
+
 		function _localDataSuccess(data) {
 			login.localData = data;
 		}
@@ -55,24 +61,5 @@
 					login.loginMsg = ''
 				});
 		};
-
-
-
-		//_auth.$onAuth(function(authData) {
-		//	// lookup if user exists! right now, faking it:
-		//	var _isNewUser = true;
-		//	var _ref = Fire.ref;
-		//
-		//	// if they don't, create a new entry
-		//
-		//	if (authData && _isNewUser) {
-		//		_ref.child('users')
-		//			.child(authData.uid)
-		//			.set({
-		//				provider: authData.provider,
-		//				name: authData[authData.provider].displayName
-		//			});
-		//	}
-		//});
 	}
 })();

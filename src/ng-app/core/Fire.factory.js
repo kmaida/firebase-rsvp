@@ -12,10 +12,20 @@
 		var uri = 'https://intense-heat-5822.firebaseio.com/';
 		var ref = new Firebase(uri);
 
+		/**
+		 * Firebase authentication controls
+		 *
+		 * @returns {*} Authentication
+		 */
 		function auth() {
 			return $firebaseAuth(ref);
 		}
 
+		/**
+		 * Fetch Firebase data
+		 *
+		 * @returns {object} Firebase data object
+		 */
 		function data() {
 			var _ref = new Firebase(uri + 'data');
 			return $firebaseObject(_ref);

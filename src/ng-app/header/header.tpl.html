@@ -15,18 +15,6 @@
 			<li>
 				<a ng-class="{active: header.navIsActive('/account')}" ng-href="/account"><i class="fa fa-user"></i>
 					<span class="nav-list-item-text">My Account</span></a>
-
-				<ul class="nav-list-subnav">
-					<li>
-						<a ng-href="/account?view=user-info">User Info</a>
-					</li>
-					<li>
-						<a ng-href="/account?view=manage-logins">Manage Logins</a>
-					</li>
-					<li>
-						<a ng-href="/account?view=rsvps">RSVPs</a>
-					</li>
-				</ul>
 			</li>
 			<li ng-if="header.data.master === header.user.uid">
 				<a ng-class="{active: header.navIsActive('/admin')}" ng-href="/admin"><i class="fa fa-wrench"></i>
@@ -38,9 +26,6 @@
 					</li>
 					<li>
 						<a ng-href="/admin?view=add-event">Add Event</a>
-					</li>
-					<li>
-						<a ng-href="/admin?view=users">Users</a>
 					</li>
 				</ul>
 			</li>

@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('EventsCtrl', EventsCtrl);
 
-	EventsCtrl.$inject = ['Fire', 'eventData', 'Event'];
+	EventsCtrl.$inject = ['Fire', 'Event'];
 
-	function EventsCtrl(Fire, eventData, Event) {
+	function EventsCtrl(Fire, Event) {
 		var events = this;
 
 		var _auth = Fire.auth();
@@ -47,12 +47,5 @@
 		events.sortStartDate = function(evt) {
 			return Event.getJSDatetime(evt.startDate, evt.startTime);
 		};
-
-		/**
-		 * Clear search query
-		 */
-		//events.clearQuery = function() {
-		//	events.query = '';
-		//};
 	}
 })();

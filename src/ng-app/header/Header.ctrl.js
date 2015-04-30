@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('HeaderCtrl', headerCtrl);
 
-	headerCtrl.$inject = ['$scope', '$location', 'localData', 'Fire'];
+	headerCtrl.$inject = ['$location', 'localData', 'Fire', '$rootScope'];
 
-	function headerCtrl($scope, $location, localData, Fire) {
+	function headerCtrl($location, localData, Fire, $rootScope) {
 		// controllerAs ViewModel
 		var header = this;
 
@@ -29,22 +29,24 @@
 		// get data from the database
 		header.data = Fire.data();
 
+		header.user = Fire.ref.getAuth();
+
 		/**
 		 * Success function from authenticating
 		 *
 		 * @param authData {object}
 		 */
-		function _getAuthData(authData) {
+		function _onAuthCb(authData) {
 			header.user = authData;
-			header.isAuthenticated = !!header.user;
+			header.isAuthenticated = !!authData;
 
-			if (!header.isAuthenticated) {
-				$location.path('login');
+			if (!authData) {
+				$location.path('/login');
 			}
 		}
 
 		// on login or logout
-		_auth.$onAuth(_getAuthData);
+		_auth.$onAuth(_onAuthCb);
 
 		/**
 		 * Log the user out of whatever authentication they've signed in with
