@@ -31,11 +31,17 @@
 			return $firebaseObject(_ref);
 		}
 
+		function events() {
+			var _ref = new Firebase(uri + 'events');
+			return $firebaseArray(_ref);
+		}
+
 		return {
 			uri: uri,
 			ref: ref,
 			auth: auth,
-			data: data
+			data: data,
+			events: events
 		}
 	}
 })();

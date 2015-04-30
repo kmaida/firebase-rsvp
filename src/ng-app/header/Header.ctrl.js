@@ -28,7 +28,6 @@
 
 		// get data from the database
 		header.data = Fire.data();
-
 		header.user = Fire.ref.getAuth();
 
 		/**
@@ -38,7 +37,6 @@
 		 */
 		function _onAuthCb(authData) {
 			header.user = authData;
-			header.isAuthenticated = !!authData;
 
 			if (!authData) {
 				$location.path('/login');

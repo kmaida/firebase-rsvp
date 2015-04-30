@@ -17,23 +17,23 @@
 			</tr>
 		</thead>
 		<tr ng-repeat="evt in aEvt.events | orderBy:aEvt.sortStartDate" id="e{{$index}}">
-			<td><a ng-href="/event/{{evt._id}}">{{evt.title}}</a></td>
+			<td><a ng-href="/event/{{evt.$id}}">{{evt.title}}</a></td>
 
 			<td>
 				<a ng-show="aEvt.copyInput !== $index"
 				   class="eventTable-link-copy"
-				   ng-click="aEvt.showUrlInput($index)">{{evt._id}}</a>
+				   ng-click="aEvt.showUrlInput($index)">{{evt.$id}}</a>
 
 				<input ng-show="aEvt.copyInput === $index"
 					   type="text"
 					   class="form-control eventTable-link-input"
-					   ng-value="aEvt.evtUrl + evt._id"
+					   ng-value="aEvt.evtUrl + evt.$id"
 					   ng-blur="aEvt.blurUrlInput()">
 			</td>
 			<td class="eventTable-action text-center">
-				<a ng-href="/event/{{evt._id}}/edit"><i class="fa fa-edit"></i></a>
+				<a ng-href="/event/{{evt.$id}}/edit"><i class="fa fa-edit"></i></a>
 			</td>
-			<td><a ng-click="admin.showGuests(evt._id, evt.title)">View</a></td>
+			<td><a ng-click="admin.showGuests(evt.$id, evt.title)">View</a></td>
 		</tr>
 	</table>
 

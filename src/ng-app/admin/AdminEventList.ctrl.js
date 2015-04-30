@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('AdminEventListCtrl', AdminEventListCtrl);
 
-	AdminEventListCtrl.$inject = ['eventData', '$location', '$timeout', 'Event'];
+	AdminEventListCtrl.$inject = ['Fire', '$location', '$timeout', 'Event'];
 
-	function AdminEventListCtrl(eventData, $location, $timeout, Event) {
+	function AdminEventListCtrl(Fire, $location, $timeout, Event) {
 		// controllerAs ViewModel
 		var aEvt = this;
 
@@ -33,6 +33,9 @@
 			});
 		};
 
+		// get events from Firebase
+		aEvt.events = Fire.events();
+
 		/**
 		 * Function for successful API call getting all events
 		 * Show Admin Events UI
@@ -42,11 +45,12 @@
 		 * @private
 		 */
 		function _getAllEventsSuccess(data) {
-			aEvt.events = data;
+			console.log(aEvt.events);
+
 			aEvt.eventsReady = true;
 		}
 
-		eventData.getAllEvents().then(_getAllEventsSuccess);
+		aEvt.events.$loaded(_getAllEventsSuccess);
 
 		/**
 		 * Custom sort function

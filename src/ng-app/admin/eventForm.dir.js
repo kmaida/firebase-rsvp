@@ -5,9 +5,9 @@
 		.module('myApp')
 		.directive('eventForm', eventForm);
 
-	eventForm.$inject = ['eventData', '$timeout', '$location', '$filter', 'Event'];
+	eventForm.$inject = ['Fire', 'Utils', '$timeout', '$location', '$filter', 'Event'];
 
-	function eventForm(eventData, $timeout, $location, $filter, Event) {
+	function eventForm(Fire, Utils, $timeout, $location, $filter, Event) {
 
 		eventFormCtrl.$inject = ['$scope'];
 
@@ -18,6 +18,8 @@
 			// check if form is create or edit
 			var _isCreate = jQuery.isEmptyObject(ef.prefillModel),
 				_isEdit = !jQuery.isEmptyObject(ef.prefillModel);
+
+			var events = Fire.events();
 
 			ef.timeRegex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/i;
 
@@ -83,7 +85,9 @@
 			 *
 			 * @private
 			 */
-			function _eventSuccess() {
+			function _eventSuccess(ref) {
+				console.log('added record with id ', ref.key());
+
 				ef.btnSaved = true;
 				ef.btnSubmitText = _isCreate ? 'Saved!' : 'Updated!';
 
@@ -103,7 +107,7 @@
 			 *
 			 * @private
 			 */
-			function _eventError() {
+			function _eventError(err) {
 				ef.btnSaved = 'error';
 				ef.btnSubmitText = _isCreate ? 'Error saving!' : 'Error updating!';
 
@@ -132,10 +136,11 @@
 			 */
 			ef.submitEvent = function() {
 				if (_isCreate) {
-					eventData.createEvent(ef.formModel).then(_eventSuccess, _eventError);
+					events.$add(ef.formModel).then(_eventSuccess, _eventError);
 
 				} else if (_isEdit) {
-					eventData.updateEvent(ef.formModel._id, ef.formModel).then(_eventSuccess, _eventError);
+					// TODO: how to edit an existing event?
+					//eventData.updateEvent(ef.formModel._id, ef.formModel).then(_eventSuccess, _eventError);
 				}
 			};
 		}

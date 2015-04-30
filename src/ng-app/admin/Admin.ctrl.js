@@ -5,41 +5,16 @@
 		.module('myApp')
 		.controller('AdminCtrl', AdminCtrl);
 
-	AdminCtrl.$inject = ['$scope', '$location', 'Fire', 'rsvpData'];
+	AdminCtrl.$inject = ['$scope', '$location', 'Fire'];
 
-	function AdminCtrl($scope, $location, Fire, rsvpData) {
+	function AdminCtrl($scope, $location, Fire) {
 		// controllerAs ViewModel
 		var admin = this;
 
-		// authentication controls
-		var _auth = Fire.auth();
+		admin.user = Fire.ref.getAuth();
 
 		// get data from the database
 		admin.data = Fire.data();
-
-		/**
-		 * Success function from authenticating
-		 *
-		 * @param authData {object}
-		 */
-		function _getAuthData(authData) {
-			admin.user = authData;
-			admin.isAuthenticated = !!admin.user;
-		}
-
-		// on login or logout
-		_auth.$onAuth(_getAuthData);
-
-
-
-		// verify that user is admin
-		userData.getUser().then(function(data) {
-			admin.adminReady = true;
-
-			if (data.isAdmin) {
-				admin.showAdmin = true;
-			}
-		});
 
 		var _tab = $location.search().view;
 
@@ -62,24 +37,6 @@
 		$scope.$on('$routeUpdate', function(event, next) {
 			admin.currentTab = next.params.view || 'events';
 		});
-
-		/**
-		 * Function for successful API call getting user list
-		 * Show Admin UI
-		 * Display list of users
-		 *
-		 * @param data {Array} promise provided by $http success
-		 * @private
-		 */
-		function _getAllUsersSuccess(data) {
-			admin.users = data;
-
-			angular.forEach(admin.users, function(user) {
-				user.linkedAccounts = User.getLinkedAccounts(user);
-			});
-		}
-
-		userData.getAllUsers().then(_getAllUsersSuccess);
 
 		/**
 		 * Show RSVPed guest modal
