@@ -28,7 +28,7 @@
 					</li>
 				</ul>
 			</li>
-			<li ng-if="header.adminUser">
+			<li ng-if="header.data.master === header.user.uid">
 				<a ng-class="{active: header.navIsActive('/admin')}" ng-href="/admin"><i class="fa fa-wrench"></i>
 					<span class="nav-list-item-text">Admin</span></a>
 
