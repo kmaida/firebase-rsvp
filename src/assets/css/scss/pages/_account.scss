@@ -1,0 +1,27 @@
+/*--------------------
+   MY ACCOUNT PAGE
+--------------------*/
+
+.account-wrapper .alert {
+	font-size: 13px;
+	margin: 20px 0 0;
+}
+
+@include mq($mq-large) {
+	.linkAccounts {
+		&-content {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -2%;
+		}
+		&-account {
+			display: flex;
+			padding-left: 2%;
+			width: 50%;
+
+			.panel {
+				width: 100%;
+			}
+		}
+	}
+}

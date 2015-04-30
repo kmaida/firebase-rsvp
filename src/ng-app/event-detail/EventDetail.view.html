@@ -1,0 +1,69 @@
+<article id="content-wrapper" class="content-wrapper eventDetail-wrapper" view-switch>
+	<section id="content-main" class="content-main eventDetail-content clearfix" ng-controller="EventDetailCtrl as event"
+			 ng-cloak>
+
+		<div ng-if="event.isAuthenticated() && event.eventReady && event.rsvpReady">
+			<h1 class="content-heading">
+				{{::event.detail.title}}
+				<small ng-if="event.isAdmin">[<a ng-href="event/{{event.detail._id}}/edit">edit</a>]</small>
+			</h1>
+
+			<p class="eventDetail-datetime">
+				<i class="fa fa-calendar"></i> <strong>Date / Time</strong><br>
+				<span ng-class="{'text-danger': event.detail.expired}">{{::event.detail.prettyDate}}</span>
+			</p>
+
+			<div class="eventDetail-location">
+				<i class="fa fa-map-marker"></i> <strong>Location</strong><br>
+				<address>{{::event.detail.location}} [<a
+						ng-href="http://maps.google.com/maps?saddr=&daddr={{::event.detail.location}}">get
+					directions</a>]</address>
+			</div>
+
+			<div class="lead" ng-bind-html="event.detail.description"></div>
+
+			<div class="eventDetail-rsvp">
+				<div ng-if="event.detail.rsvp && !event.detail.expired">
+					<i class="fa fa-paper-plane"></i> <strong>RSVP</strong>
+
+					<div ng-if="event.detail.rsvpInstructions"
+						 ng-bind-html="event.detail.rsvpInstructions"
+						 class="eventDetail-rsvp-instructions"></div>
+
+					<p ng-if="event.noRsvp"><em>You may RSVP to this event.</em></p>
+
+					<p ng-if="!event.noRsvp">
+						<em>You have RSVPed stating {{event.guestText}} <strong>{{event.attendingText}}</strong> this event.</em>
+					</p>
+
+					<div class="eventDetail-rsvp-buttons">
+						<button ng-if="event.showEventDownload"
+								class="btn btn-info"
+								ng-click="event.downloadIcs()"><i class="fa fa-download"></i> Download to Calendar
+						</button>
+
+						<button class="btn btn-primary"
+								ng-click="event.openRsvpModal()"><i class="fa fa-paper-plane"></i> {{event.rsvpBtnText}}</button>
+					</div>
+				</div>
+
+				<div ng-if="!event.detail.rsvp" class="alert alert-warning">
+					<i class="fa fa-warning"></i> RSVP is closed for this event.
+				</div>
+
+				<div ng-if="event.detail.expired" class="alert alert-danger">
+					<i class="fa fa-ban"></i> This event has ended.
+				</div>
+
+				<rsvp-form ng-if="!event.detail.expired && event.detail.rsvp"
+						   event="event.detail"
+						   form-model="event.rsvpObj"
+						   user-name="{{::event.user.displayName}}"
+						   user-id="{{::event.user._id}}"
+						   show-modal="event.showModal"></rsvp-form>
+			</div>
+
+		</div>
+
+	</section>
+</article>

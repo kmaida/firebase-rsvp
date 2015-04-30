@@ -1,0 +1,60 @@
+/*--------------------
+	  API STYLES
+--------------------*/
+
+/*------------------------------------------------------------------------- Auth Buttons --*/
+
+.btn-auth {
+	color: $color-white;
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: $color-white;
+	}
+	i {
+		margin-right: 4px;
+	}
+}
+.btn-facebook {
+	background: $color-social-facebook;
+	border: 1px solid $color-social-facebook-dark;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $color-social-facebook-dark;
+	}
+}
+.btn-twitter {
+	background: $color-social-twitter;
+	border: 1px solid $color-social-twitter-dark;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $color-social-twitter-dark;
+	}
+}
+.btn-google {
+	background: $color-social-google;
+	border: 1px solid $color-social-google-dark;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $color-social-google-dark;
+	}
+}
+.btn-github {
+	background: $color-social-github;
+	border: 1px solid $color-social-github-dark;
+	color: $color-black;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $color-social-github-dark;
+		color: $color-black;
+	}
+}

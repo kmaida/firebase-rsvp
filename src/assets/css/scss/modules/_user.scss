@@ -1,0 +1,16 @@
+.user {
+	margin-bottom: 15px;
+
+	&-picture {
+		border-radius: 100px;
+		display: inline-block;
+		height: 30px;
+		vertical-align: middle;
+		width: 30px;
+	}
+	&-displayName {
+		display: inline-block;
+		margin-left: 4px;
+		vertical-align: middle;
+	}
+}

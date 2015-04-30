@@ -1,0 +1,67 @@
+<article id="content-wrapper" class="content-wrapper events-wrapper" view-switch>
+	<section id="content-main" class="content-main events-content clearfix" ng-controller="EventsCtrl as events" ng-cloak>
+
+		<div ng-if="events.isAuthenticated()">
+			<h1 class="content-heading">Events</h1>
+
+			<!--<div id="events-search" class="form-group form-inline">-->
+				<!--<label for="events-search">Search Events</label>-->
+				<!--<input id="events-search" class="form-control" type="text" ng-model="events.query">-->
+				<!--<a ng-if="events.query" class="events-search-clearQuery" ng-click="events.clearQuery()">&times;</a>-->
+			<!--</div>-->
+
+			<section class="events-upcoming" ng-if="events.eventsReady">
+				<h3><i class="fa fa-calendar"></i> Upcoming Events</h3>
+				<p class="lead">View / RSVP for upcoming events.</p>
+
+				<table class="table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Date(s)</th>
+							<th>RSVP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="evt in events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate">
+							<td><a ng-href="/event/{{::evt._id}}">{{::evt.title}}</a></td>
+							<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
+								(evt.endDate | prettyDate) :
+								''}}</td>
+							<td ng-class="{'text-danger': !evt.rsvp, 'text-success': evt.rsvp}">{{::evt.rsvp ? 'Open' : 'Closed'}}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div ng-if="!(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length" class="alert alert-warning">
+					<i class="fa fa-warning"></i> There are no upcoming events.
+				</div>
+			</section>
+
+			<section class="events-past" ng-if="events.eventsReady && (events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query).length">
+				<h3><i class="fa fa-book"></i> Past Events</h3>
+				<p class="lead">These events have come and gone, but their details are still available to view.</p>
+
+				<table class="table table-responsive text-muted">
+					<thead>
+					<tr>
+						<th>Event</th>
+						<th>Date(s)</th>
+						<th>RSVP</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="evt in events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate">
+						<td><a ng-href="/event/{{::evt._id}}">{{::evt.title}}</a></td>
+						<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
+							(evt.endDate | prettyDate) :
+							''}}</td>
+						<td class="text-danger">Closed</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+		</div>
+
+	</section>
+</article>

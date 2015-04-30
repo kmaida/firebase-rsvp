@@ -1,0 +1,67 @@
+/*--------------------
+	   BASICS
+--------------------*/
+
+/*-- ng-cloak: prevent FOUC before Angular JavaScript loads --*/
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+	display: none !important;
+}
+
+a {
+	cursor: pointer;
+}
+
+/*-- Inline link touch targets --*/
+
+.touch p a {
+	margin: 0 -.5em;
+	padding: 0 .5em;
+}
+
+/*-- Form validation classes --*/
+
+input.ng-dirty.ng-invalid {
+	border-color: $color-invalid-rgba;
+	box-shadow: 0 0 6px $color-invalid-rgba;
+}
+div[ng-messages] {
+	margin-top: 4px;
+}
+
+/*--------------------
+	    PRINT
+--------------------*/
+
+@media print {
+
+	* { background: $color-white; }
+	body {
+		color: $color-black;
+		font: normal 16px/1.4 Georgia, 'Times New Roman', serif;
+	}
+
+	/*-- Hidden Elements --*/
+
+	.header-global,
+	.footer-global { display: none; }
+
+	/*-- Show link URLs --*/
+
+	a:link,
+	a:visited {
+		color: blue;
+		text-decoration: underline;
+	}
+	a:link:after,
+	a:visited:after {
+		content:" [" attr(href) "] ";
+		font-size: 75%;
+	}
+
+}

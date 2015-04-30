@@ -1,0 +1,31 @@
+<article id="content-wrapper" class="content-wrapper login-wrapper" view-switch>
+	<section id="content-main" class="content-main login-content clearfix container-fluid"
+			 ng-controller="LoginCtrl as login"
+			 ng-cloak>
+
+		<h1 class="login-header-large text-center"><i class="fa fa-paper-plane-o"></i> {{::login.localData
+			.title}}</h1>
+
+		<div class="jumbotron">
+			<h2 class="login-header-jumbotron"><i class="fa fa-sign-in"></i> Login</h2>
+
+			<p ng-if="!login.loggingIn || login.loggingIn === 'error'">Please login with one of the following services.</p>
+
+			<p ng-if="login.loggingIn === true"><i class="fa fa-cog fa-spin"></i> Logging in...</p>
+
+			<div ng-if="login.loggingIn === 'error'" class="alert alert-danger">
+				<i class="fa fa-warning"></i> Login failed!
+			</div>
+
+			<detect-adblock></detect-adblock>
+
+			<button ng-repeat="l in login.logins"
+					class="btn btn-block btn-auth btn-{{::l.account}}"
+					ng-click="login.authenticate(l.account)"
+					ng-disabled="login.loggingIn === true">
+				<i class="fa fa-{{::l.account}}"></i> Login with {{::l.name}}
+			</button>
+		</div>
+
+	</section>
+</article>

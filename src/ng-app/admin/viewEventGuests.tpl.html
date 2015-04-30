@@ -1,0 +1,61 @@
+<div class="modal" ng-class="{showModal: g.showModal}">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="g.closeModal()"
+						aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">RSVPs for <a ng-href="/event/{{g.eventId}}">{{g.eventName}}</a></h4>
+			</div>
+			<div class="modal-body" ng-show="g.guestsReady">
+
+				<section ng-if="(g.guests | filter:{attending: true}).length" class="guests-attending">
+					<h4 class="text-success">Attending ({{g.totalGuests}})</h4>
+
+					<table class="table table-responsive table-condensed" ng-if="g.guests.length">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th class="text-center">Guests</th>
+							<th>Comments</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="rsvp in g.guests | filter:{attending: true}">
+							<td>{{::rsvp.name}}</td>
+							<td class="text-center">{{::rsvp.guests}}</td>
+							<td ng-bind-html="rsvp.comments"></td>
+						</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section ng-if="(g.guests | filter:{attending: false}).length" class="guests-notAttending">
+					<h4 class="text-danger">Not Attending</h4>
+
+					<table class="table table-responsive table-condensed text-muted" ng-if="g.guests.length">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Comments</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="rsvp in g.guests | filter:{attending: false}">
+							<td><em>{{::rsvp.name}}</em></td>
+							<td ng-bind-html="rsvp.comments"></td>
+						</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<div ng-if="g.guests.length === 0" class="alert alert-warning event-guests-noGuestsAlert">
+					<i class="fa fa-info-circle"></i> No guests have RSVPed to this event.
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="g.closeModal()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+

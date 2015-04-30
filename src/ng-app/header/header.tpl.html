@@ -1,0 +1,53 @@
+<div ng-controller="HeaderCtrl as header" nav-control>
+	<div class="header-mobile-page">
+		<a class="toggle-offcanvas" ng-click="header.isAuthenticated() ? nav.toggleNav() : null" ng-class="{'disabled': !header.isAuthenticated()}">
+		<span></span></a>
+		<h1 class="header-mobile-page-siteTitle"><i class="fa fa-paper-plane-o"></i> {{::header.localData.title}}</h1>
+	</div>
+
+	<!-- only show navigation if user is logged in -->
+	<nav ng-if="header.isAuthenticated()" id="nav" class="nav" role="navigation">
+		<ul class="nav-list">
+			<li>
+				<a ng-class="{active: header.indexIsActive('/')}" ng-href="/"><i class="fa fa-calendar"></i> <span
+						class="nav-list-item-text">Events</span></a>
+			</li>
+			<li>
+				<a ng-class="{active: header.navIsActive('/account')}" ng-href="/account"><i class="fa fa-user"></i>
+					<span class="nav-list-item-text">My Account</span></a>
+
+				<ul class="nav-list-subnav">
+					<li>
+						<a ng-href="/account?view=user-info">User Info</a>
+					</li>
+					<li>
+						<a ng-href="/account?view=manage-logins">Manage Logins</a>
+					</li>
+					<li>
+						<a ng-href="/account?view=rsvps">RSVPs</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-if="header.adminUser">
+				<a ng-class="{active: header.navIsActive('/admin')}" ng-href="/admin"><i class="fa fa-wrench"></i>
+					<span class="nav-list-item-text">Admin</span></a>
+
+				<ul class="nav-list-subnav">
+					<li>
+						<a ng-href="/admin?view=events">Events</a>
+					</li>
+					<li>
+						<a ng-href="/admin?view=add-event">Add Event</a>
+					</li>
+					<li>
+						<a ng-href="/admin?view=users">Users</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a ng-click="header.logout()"><i class="fa fa-sign-out"></i>
+					<span class="nav-list-item-text">Logout</span></a>
+			</li>
+		</ul>
+	</nav>
+</div>

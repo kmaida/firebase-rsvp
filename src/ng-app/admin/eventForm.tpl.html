@@ -1,0 +1,238 @@
+<form method="post" ng-submit="ef.submitEvent()" name="eventForm" class="eventForm">
+
+	<p class="text-danger">
+		<strong>*</strong> <em class="small">required</em>
+	</p>
+
+	<div class="form-group">
+		<label for="eventTitle">Title<span class="text-danger">*</span></label>
+
+		<input id="eventTitle"
+			   type="text"
+			   name="title"
+			   ng-model="ef.formModel.title"
+			   class="form-control"
+			   placeholder="Event Title"
+			   required>
+
+		<div ng-if="eventForm.title.$dirty && eventForm.title.$invalid" ng-messages="eventForm.title.$error" class="text-danger">
+			<span ng-message="required">Title is <strong>required</strong></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Start Date/Time<span class="text-danger">*</span></label>
+
+		<div class="form-inline">
+			<div class="form-group">
+				<div class="input-group">
+					<label for="eventDate-startDate" class="input-group-addon">Date</label>
+					<input id="eventDate-startDate"
+						   type="text"
+						   class="form-control"
+						   name="startDate"
+						   validate-date-future
+						   datepicker-popup="MM/dd/yyyy"
+						   placeholder="mm/dd/yyyy"
+						   ng-model="ef.formModel.startDate"
+						   is-open="ef.startDateOpen"
+						   min-date="ef.minDate"
+						   datepicker-options="ef.dateOptions"
+						   close-text="Close"
+						   ng-blur="ef.startDateBlur(); ef.validateDaterange()"
+						   required />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'startDate')"><i class="fa fa-calendar"></i></button>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<label for="eventDate-startTime" class="input-group-addon">Time</label>
+					<input id="eventDate-startTime"
+						   type="text"
+						   name="startTime"
+						   ng-model="ef.formModel.startTime"
+						   class="form-control"
+						   placeholder="h:mm AM/PM"
+						   ng-pattern="ef.timeRegex"
+						   ng-blur="ef.validateDaterange()"
+						   required>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="eventForm.startDate.$dirty && eventForm.startDate.$invalid" ng-messages="eventForm.startDate.$error" class="text-danger">
+			<span ng-message="date">Enter a valid date, e.g. <strong>mm/dd/yyyy</strong></span>
+			<span ng-message="pastDate" ng-if="!eventForm.startDate.$error.date">Please enter a date in the future</span>
+			<span ng-message="required">Start date is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="eventForm.startTime.$dirty && eventForm.startTime.$invalid" ng-messages="eventForm.startTime.$error" class="text-danger">
+			<span ng-message="pattern">Enter a time in 12-hour format <strong>h:mm AM/PM</strong></span>
+			<span ng-message="required">Start time is <strong>required</strong></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>End Date/Time<span class="text-danger">*</span></label>
+
+		<div class="form-inline">
+			<div class="form-group">
+				<div class="input-group">
+					<label for="eventDate-endDate" class="input-group-addon">Date</label>
+					<input id="eventDate-endDate"
+						   type="text"
+						   class="form-control"
+						   name="endDate"
+						   validate-date-future
+						   datepicker-popup="MM/dd/yyyy"
+						   placeholder="mm/dd/yyyy"
+						   ng-model="ef.formModel.endDate"
+						   is-open="ef.endDateOpen"
+						   min-date="ef.minDate"
+						   datepicker-options="ef.dateOptions"
+						   close-text="Close"
+						   ng-blur="ef.validateDaterange()"
+						   required />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'endDate')"><i class="fa fa-calendar"></i></button>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<label for="eventDate-endTime" class="input-group-addon">Time</label>
+					<input id="eventDate-endTime"
+						   type="text"
+						   name="endTime"
+						   ng-model="ef.formModel.endTime"
+						   class="form-control"
+						   placeholder="h:mm AM/PM"
+						   ng-pattern="ef.timeRegex"
+						   ng-blur="ef.validateDaterange()"
+						   required>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="eventForm.endDate.$dirty && eventForm.endDate.$invalid" ng-messages="eventForm.endDate.$error" class="text-danger">
+			<span ng-message="date">Enter a valid date, e.g. <strong>mm/dd/yyyy</strong></span>
+			<span ng-message="pastDate" ng-if="!eventForm.endDate.$error.date">Please enter a date in the future</span>
+			<span ng-message="required">End date is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="eventForm.endTime.$dirty && eventForm.endTime.$invalid" ng-messages="eventForm.endTime.$error" class="text-danger">
+			<span ng-message="pattern">Enter a time in 12-hour format <strong>h:mm AM/PM</strong></span>
+			<span ng-message="required">End time is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && eventForm.endDate.$valid && eventForm.endTime.$valid && ef.validDaterange === false" class="message-invalid text-danger">
+			<strong>Event date/time range is invalid</strong>: event ends before it begins
+		</div>
+
+	</div>
+
+	<div class="form-group">
+		<label for="eventLocation">Location<span class="text-danger">*</span></label>
+		<input id="eventLocation"
+			   name="location"
+			   ng-model="ef.formModel.location"
+			   class="form-control"
+			   placeholder="123 Some Street, City, State"
+			   required>
+
+		<div ng-if="eventForm.location.$dirty && eventForm.location.$invalid" ng-messages="eventForm.location.$error" class="text-danger">
+			<span ng-message="required">Location is <strong>required</strong></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="eventDesc">Description</label>
+		<textarea id="eventDesc"
+				  name="description"
+				  ng-model="ef.formModel.description"
+				  class="form-control"
+				  rows="4"></textarea>
+	</div>
+
+	<div class="form-group">
+		<label>Public<span class="text-danger">*</span></label>
+		<p class="help-block">
+			<small>If marked public, event appears on <a ng-href="/events">Events</a> listing. If not public, users
+				need a direct link to view event details and RSVP.</small>
+		</p>
+
+		<div class="radio">
+			<label class="radio-inline">
+				<input type="radio"
+					   name="viewPublic"
+					   ng-value="true"
+					   ng-model="ef.formModel.viewPublic"
+					   required>Yes
+			</label>
+
+			<label class="radio-inline">
+				<input type="radio"
+					   name="viewPublic"
+					   ng-value="false"
+					   ng-model="ef.formModel.viewPublic">No
+			</label>
+		</div>
+
+		<div ng-if="eventForm.viewPublic.$invalid" ng-messages="eventForm.viewPublic.$error" class="text-danger">
+			<span ng-message="required">Public is <strong>required</strong></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>RSVP<span class="text-danger">*</span></label>
+		<p class="help-block">
+			<small>NOTE: If the event has ended, users cannot submit / update RSVPs regardless of Open/Closed status below.</small>
+		</p>
+
+		<div class="radio">
+			<label class="radio-inline">
+				<input type="radio"
+					   name="rsvp"
+					   ng-value="true"
+					   ng-model="ef.formModel.rsvp"
+					   required>Open
+			</label>
+
+			<label class="radio-inline">
+				<input type="radio"
+					   name="rsvp"
+					   ng-value="false"
+					   ng-model="ef.formModel.rsvp">Closed
+			</label>
+		</div>
+
+		<div ng-if="eventForm.rsvp.$invalid" ng-messages="eventForm.rsvp.$error" class="text-danger">
+			<span ng-message="required">RSVP is <strong>required</strong></span>
+		</div>
+	</div>
+
+	<div ng-if="ef.formModel.rsvp" class="form-group">
+		<label for="eventRsvpInstructions">Special Instructions for RSVP</label>
+		<textarea id="eventRsvpInstructions"
+				  name="rsvpInstructions"
+				  ng-model="ef.formModel.rsvpInstructions"
+				  class="form-control"
+				  rows="3"></textarea>
+	</div>
+
+	<button type="submit"
+			class="btn-save btn"
+			ng-class="{'btn-primary': !ef.btnSaved, 'btn-success': ef.btnSaved === true, 'btn-danger': ef.btnSaved === 'error'}"
+			ng-disabled="eventForm.$invalid || ef.validDaterange === false">
+		<i class="fa" ng-class="{'fa-download': !ef.btnSaved, 'fa-check': ef.btnSaved, 'fa-ban': ef.btnSaved === 'error'}"></i> {{ef.btnSubmitText}}
+	</button>
+
+	<span ng-if="ef.showUpdateDetailLink" class="eventForm-updated"> [<a ng-href="/event/{{ef.formModel._id}}">view
+		event details</a>]</span>
+
+	<span ng-if="ef.showRedirectMsg" class="eventForm-updated"> [returning to Events...]</span>
+</form>

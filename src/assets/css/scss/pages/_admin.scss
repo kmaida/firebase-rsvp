@@ -1,0 +1,85 @@
+/*--------------------
+     ADMIN PAGE
+--------------------*/
+
+/*------------------------------------------------------------------------- Tabs --*/
+
+.adminTabs {
+	a {
+		cursor: pointer;
+	}
+}
+
+/*------------------------------------------------------------------------- Event List --*/
+
+.eventTable {
+	th,
+	td {
+		vertical-align: middle !important;
+	}
+	&-link-copy {
+		border: 1px solid transparent;
+		cursor: copy;
+		display: inline-block;
+		height: 34px;
+		max-width: 100px;
+		overflow: hidden;
+		padding: 10px 0;
+		text-overflow: ellipsis;
+
+		@include mq($mq-large) {
+			max-width: 100%;
+		}
+	}
+	&-link-input {
+		width: 90%;
+	}
+	&-action {
+		font-size: 18px;
+	}
+}
+
+/*------------------------------------------------------------------------- User List --*/
+
+.userList {
+	&-list {
+		list-style: none;
+		padding-left: 0;
+	}
+	&-item {
+		padding: 6px 0;
+	}
+	.user {
+		margin-bottom: 0;
+	}
+	.user-picture {
+		height: 40px;
+		width: 40px;
+	}
+}
+.user-logins {
+	border-radius: 100px;
+	color: $color-white;
+	font-size: 14px;
+	height: 22px;
+	margin: 0 2px;
+	padding: 5px;
+	text-align: center;
+	vertical-align: middle;
+	width: 22px;
+
+	&.fa-google {
+		background: $color-social-google;
+	}
+	&.fa-facebook {
+		background: $color-social-facebook;
+	}
+	&.fa-twitter {
+		background: $color-social-twitter;
+	}
+	&.fa-github {
+		background: $color-social-github;
+		color: $color-black;
+		padding: 4px;
+	}
+}

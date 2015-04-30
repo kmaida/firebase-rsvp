@@ -1,0 +1,11 @@
+.eventForm {
+	table:focus {
+		outline: none;
+	}
+	.input-group-btn .btn {
+		height: 34px;
+	}
+	.message-invalid {
+		margin-top: 4px;
+	}
+}

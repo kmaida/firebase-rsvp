@@ -1,0 +1,44 @@
+<section class="eventAdminListing" ng-controller="AdminEventListCtrl as aEvt">
+	<h2>
+		<i class="fa fa-list"></i> All Events
+	</h2>
+
+	<p class="lead">
+		View all events and access detail links, update, or delete.
+	</p>
+
+	<table ng-if="aEvt.eventsReady" class="eventTable table table-responsive table-condensed">
+		<thead>
+			<tr>
+				<th>Event</th>
+				<th>ID / URL</th>
+				<th class="text-center">Edit</th>
+				<th>RSVPs</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="evt in aEvt.events | orderBy:aEvt.sortStartDate" id="e{{$index}}">
+			<td><a ng-href="/event/{{evt._id}}">{{evt.title}}</a></td>
+
+			<td>
+				<a ng-show="aEvt.copyInput !== $index"
+				   class="eventTable-link-copy"
+				   ng-click="aEvt.showUrlInput($index)">{{evt._id}}</a>
+
+				<input ng-show="aEvt.copyInput === $index"
+					   type="text"
+					   class="form-control eventTable-link-input"
+					   ng-value="aEvt.evtUrl + evt._id"
+					   ng-blur="aEvt.blurUrlInput()">
+			</td>
+			<td class="eventTable-action text-center">
+				<a ng-href="/event/{{evt._id}}/edit"><i class="fa fa-edit"></i></a>
+			</td>
+			<td><a ng-click="admin.showGuests(evt._id, evt.title)">View</a></td>
+		</tr>
+	</table>
+
+	<view-event-guests event-id="admin.showGuestsEventId"
+					   event-name="admin.showGuestsEventName"
+					   show-modal="admin.showModal"></view-event-guests>
+
+</section>

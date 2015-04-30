@@ -1,0 +1,19 @@
+/*--------------------
+   EVENT DETAIL PAGE
+--------------------*/
+
+.eventDetail-location {
+	address {
+		margin-bottom: 10px;
+	}
+}
+.eventDetail-rsvp {
+	&-instructions {
+		margin-bottom: 10px;
+	}
+	&-buttons {
+		.btn {
+			margin-bottom: 10px;
+		}
+	}
+}

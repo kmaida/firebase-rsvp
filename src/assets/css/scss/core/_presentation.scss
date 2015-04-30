@@ -1,0 +1,74 @@
+/*--------------------
+	 PRESENTATION
+--------------------*/
+
+body {
+	background: #eee;
+	color: $color-copy;
+	font: normal 14px/1.4 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+}
+.layout-canvas {
+	background: $color-white;
+}
+
+/*-- Button transitions --*/
+
+.btn,
+.btn:hover,
+.btn:active,
+.btn:focus {
+	transition: $transition-all;
+}
+
+/*-- AdBlock messaging --*/
+
+.ad-test {
+	&:before {
+		position: absolute;
+		left: -9999px;
+	}
+}
+.ab-message {
+	line-height: 1.4;
+
+	.account-main .linkAccounts & {
+		margin-bottom: 20px;
+	}
+}
+
+/*-- Base Bootstrap overrides --*/
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+	vertical-align: middle;
+}
+
+/*------------------------------------------------------------------------- Content --*/
+
+.content-wrapper {
+	min-height: 550px;
+	padding: $padding-screen-small;
+
+	@include mq($mq-large) {
+		padding: $padding-screen-large;
+	}
+}
+.content-main {
+	margin: 0 auto;
+	max-width: 960px;
+}
+.content-section {
+	margin: 30px 0;
+}
+.content-heading {
+	margin: -1.5% 0 20px;
+
+	@include mq($mq-large) {
+		margin-top: 0;
+		text-align: center;
+	}
+}

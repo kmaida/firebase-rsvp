@@ -1,0 +1,38 @@
+<article id="content-wrapper" class="content-wrapper admin-wrapper" view-switch>
+	<section id="content-main" class="content-main admin-main clearfix" ng-controller="AdminCtrl as admin" ng-cloak>
+
+		<h1 class="content-heading">Admin</h1>
+
+		<div ng-if="admin.isAuthenticated() && admin.showAdmin">
+
+			<ul class="nav nav-tabs adminTabs">
+				<li ng-repeat="tab in admin.tabs" role="presentation" ng-class="{active: admin.currentTab === tab.query}">
+					<a ng-href="admin?view={{tab.query}}">{{tab.name}}</a>
+				</li>
+			</ul>
+
+			<div ng-if="admin.currentTab === 'events'" class="content-section" ng-include="'/ng-app/admin/eventList.tpl.html'"></div>
+
+			<div ng-if="admin.currentTab === 'add-event'" class="content-section">
+				<section class="eventForm">
+					<h2>
+						<i class="fa fa-calendar"></i> Add Event
+					</h2>
+
+					<p class="lead">
+						Create a new event announcement and enable RSVP.
+					</p>
+
+					<event-form></event-form>
+				</section>
+			</div>
+
+			<div ng-if="admin.currentTab === 'users'" class="content-section" ng-include="'/ng-app/admin/users.tpl.html'"></div>
+		</div>
+
+		<div ng-if="!admin.showAdmin && admin.adminReady" class="alert alert-danger">
+			<i class="fa fa-warning"></i> You are not authorized to view this page.
+		</div>
+
+	</section>
+</article>

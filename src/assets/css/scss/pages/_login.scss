@@ -1,0 +1,26 @@
+/*--------------------
+	 LOGIN PAGE
+--------------------*/
+
+.login-header-large {
+	display: none;
+
+	@include mq($mq-large) {
+		display: block;
+		margin-bottom: 20px;
+	}
+}
+.login-header-jumbotron {
+	margin-top: 0;
+}
+.login-content {
+	max-width: 450px;
+
+	/*-- Auth Buttons --*/
+
+	.btn-auth {
+		font-size: 16px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<!--[if lte IE 8]><html lang="en" class="no-js oldIE ie no-angular"><![endif]-->
+<!--[if IE 9]><html lang="en" class="no-js ie9 ie" ng-app="myApp"><![endif]-->
+<!--[if gt IE 9|!IE]><!--><html class="no-js" ng-app="myApp"><!-- <![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>RSVP | kmaida.io</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<base href="/">
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link href="/assets/css/styles.css" rel="stylesheet" media="all">
+
+		<!-- Modernizr -->
+		<script src="/assets/js/vendor/modernizr.min.js"></script>
+	</head>
+
+	<body ng-cloak>
+		<div class="layout-overflow">
+			<div class="layout-canvas">
+			
+			<!-- HEADER -->
+				<header id="header" class="header clearfix" ng-include="'ng-app/header/header.tpl.html'"></header>
+
+			<!-- CONTENT (Angular View) -->
+				<div id="layout-view" class="layout-view" ng-view autoscroll="true"></div>
+
+			<!-- FOOTER -->
+				<footer id="footer" class="footer clearfix" ng-include="'ng-app/footer/footer.tpl.html'"></footer>
+
+			</div> <!-- /.layout-canvas -->
+		</div> <!-- /.layout-overflow -->
+
+		<!-- JS Vendors / Libraries -->
+		<script src="/assets/js/vendor/vendor.js"></script>
+
+		<!-- Angular app JS -->
+		<script src="/ng-app/ng-app.js"></script>
+		
+		<!-- JavaScript -->
+		<script src="/assets/js/scripts.js"></script>
+	</body>
+</html>

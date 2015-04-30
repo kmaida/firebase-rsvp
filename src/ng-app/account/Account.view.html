@@ -1,0 +1,30 @@
+<article id="content-wrapper" class="content-wrapper account-wrapper" view-switch>
+	<section id="content-main" class="content-main account-main clearfix" ng-controller="AccountCtrl as account"
+			 ng-cloak>
+
+		<h1 class="content-heading">My Account</h1>
+
+		<div ng-if="account.errorGettingUser" class="alert alert-danger">
+			<i class="fa fa-warning"></i> There was an error retrieving your information!
+		</div>
+
+		<div ng-if="account.isAuthenticated() && account.showAccount">
+
+			<ul class="nav nav-tabs adminTabs">
+				<li ng-repeat="tab in account.tabs" role="presentation" ng-class="{active: account.currentTab === tab.query}">
+					<a ng-href="account?view={{tab.query}}">{{tab.name}}</a>
+				</li>
+			</ul>
+
+			<!-- User Info -->
+			<section ng-if="account.currentTab === 'user-info'" class="updateInfo content-section" ng-include="'ng-app/account/userInfo.tpl.html'"></section>
+
+			<!-- Manage Logins -->
+			<section ng-if="account.currentTab === 'manage-logins'" class="linkAccounts content-section" ng-include="'ng-app/account/manageLogins.tpl.html'"></section>
+
+			<!-- RSVPs -->
+			<section ng-if="account.currentTab === 'rsvps'" class="rsvps content-section" ng-include="'ng-app/account/rsvps.tpl.html'"></section>
+		</div>
+
+	</section>
+</article>

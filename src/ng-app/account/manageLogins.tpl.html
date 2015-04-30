@@ -1,0 +1,51 @@
+<h2>
+	<i class="fa fa-link"></i> Manage Logins
+</h2>
+
+<p class="lead">
+	Manage your login options by authorizing and linking third-party accounts. Once linked, you may use
+	that service to login.
+</p>
+
+<detect-adblock></detect-adblock>
+
+<div class="linkAccounts-content">
+
+	<div class="linkAccounts-account" ng-repeat="login in account.logins">
+		<div class="panel" ng-class="{'panel-success': account.user[login.account], 'panel-default': !account.user[login.account]}">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-{{::login.account}}"></i> {{::login.name}}
+				</h3>
+			</div>
+
+			<div class="panel-body">
+				<p ng-if="!account.user[login.account]">
+					Visit <a href="{{::login.url}}">{{::login.url}}</a> to view your account or sign&nbsp;up.
+				</p>
+
+				<p ng-if="account.user[login.account]">
+					Your account is linked! You may use {{::login.name}} to&nbsp;login.
+				</p>
+
+				<div ng-if="account.user[login.account] && account.linkedAccounts.length === 1" class="alert alert-warning" role="alert">
+					<i class="fa fa-info-circle"></i> {{login.name}} is currently your only login.
+				</div>
+
+				<!-- Link/Unlink buttons -->
+
+				<button class="btn btn-sm btn-danger" ng-if="account.user[login.account] && account.linkedAccounts.length > 1" ng-click="account.unlink(login.account)">
+					<i class="fa fa-unlink"></i> Unlink {{::login.name}}
+				</button>
+
+				<button class="btn btn-sm btn-primary" ng-if="!account.user[login.account]"
+						ng-click="account.link(login.account)">
+					<i class="fa fa-link"></i> Link {{::login.name}}
+				</button>
+			</div>
+
+		</div>
+	</div> <!-- /.linkAccounts-account -->
+
+</div>
