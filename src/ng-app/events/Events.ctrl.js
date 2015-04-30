@@ -5,19 +5,16 @@
 		.module('myApp')
 		.controller('EventsCtrl', EventsCtrl);
 
-	EventsCtrl.$inject = ['$auth', 'eventData', 'Event'];
+	EventsCtrl.$inject = ['Fire', 'eventData', 'Event'];
 
-	function EventsCtrl($auth, eventData, Event) {
+	function EventsCtrl(Fire, eventData, Event) {
 		var events = this;
 
-		/**
-		 * Determines if the user is authenticated
-		 *
-		 * @returns {boolean}
-		 */
-		events.isAuthenticated = function() {
-			return $auth.isAuthenticated();
-		};
+		var _auth = Fire.auth();
+
+		_auth.$onAuth(function(authData) {
+			events.isAuthenticated = !!authData;
+		});
 
 		/**
 		 * Function for successful API call getting events list

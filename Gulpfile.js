@@ -18,8 +18,8 @@ var gulp = require('gulp'),
  */
 
 var basePath = {
-	src: 'public/',
-	dest: 'public/'
+	src: 'src/',
+	dest: 'src/'
 };
 
 var path = {
@@ -114,7 +114,7 @@ function js() {
  */
 
 function jsVendor() {
-	return gulp.src([path.jsVendor.src + 'jquery.js', path.jsVendor.src + 'angular.js', path.jsVendor.src + 'ics.deps.js', path.jsVendor.src + 'ics.js', path.jsVendor.src + '**/*.js', '!' + path.jsVendor.src + 'modernizr.min.js', '!' + path.jsVendor.src + 'vendor.js'])
+	return gulp.src([path.jsVendor.src + 'jquery.js', path.jsVendor.src + 'angular.js', path.jsVendor.src + 'firebase.js', path.jsVendor.src + 'angularfire.js', path.jsVendor.src + 'ics.deps.js', path.jsVendor.src + 'ics.js', path.jsVendor.src + '**/*.js', '!' + path.jsVendor.src + 'modernizr.min.js', '!' + path.jsVendor.src + 'vendor.js'])
 		.pipe(concat('vendor.js'))
 		.pipe(isProduction ? uglify() : gutil.noop() )	// to unminify vendor in dev, uncomment this and comment out the next line instead
 		//.pipe(uglify())

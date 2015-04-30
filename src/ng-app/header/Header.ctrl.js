@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('HeaderCtrl', headerCtrl);
 
-	headerCtrl.$inject = ['$scope', '$location', 'localData', '$auth', 'userData'];
+	headerCtrl.$inject = ['$scope', '$location', 'localData', 'Fire'];
 
-	function headerCtrl($scope, $location, localData, $auth, userData) {
+	function headerCtrl($scope, $location, localData, Fire) {
 		// controllerAs ViewModel
 		var header = this;
 
@@ -17,12 +17,23 @@
 
 		localData.getJSON().then(_localDataSuccess);
 
+		var _auth = Fire.auth();
+
+		_auth.$onAuth(function(authData) {
+			header.user = authData;
+			header.isAuthenticated = !!header.user;
+
+			if (!header.isAuthenticated) {
+				$location.path('login');
+			}
+		});
+
 		/**
 		 * Log the user out of whatever authentication they've signed in with
 		 */
 		header.logout = function() {
 			header.adminUser = undefined;
-			$auth.logout('/login');
+			_auth.$unauth();
 		};
 
 		/**
@@ -36,24 +47,15 @@
 		 */
 		function _checkUserAdmin() {
 			// if user is authenticated and not defined yet, check if they're an admin
-			if ($auth.isAuthenticated() && header.adminUser === undefined) {
-				userData.getUser()
-					.then(function(data) {
-						header.adminUser = data.isAdmin;
-					});
+			if (header.authData && header.adminUser === undefined) {
+				//userData.getUser()
+				//	.then(function(data) {
+				//		header.adminUser = data.isAdmin;
+				//	});
 			}
 		}
 		_checkUserAdmin();
 		$scope.$on('$locationChangeSuccess', _checkUserAdmin);
-
-		/**
-		 * Is the user authenticated?
-		 *
-		 * @returns {boolean}
-		 */
-		header.isAuthenticated = function() {
-			return $auth.isAuthenticated();
-		};
 
 		/**
 		 * Currently active nav item when '/' index
