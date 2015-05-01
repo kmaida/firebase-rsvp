@@ -11,6 +11,7 @@
 			var _provider = user.provider,
 				_profile = user[_provider].cachedUserProfile;
 
+			// TODO: turn this into a hashmap
 			if (_provider === 'github') {
 				return _profile.avatar_url;
 			} else if (_provider === 'google') {
