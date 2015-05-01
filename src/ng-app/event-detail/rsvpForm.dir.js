@@ -82,8 +82,6 @@
 				rf.btnSaved = true;
 				rf.btnSubmitText = _isCreate ? 'Submitted!' : 'Updated!';
 
-				$rootScope.$broadcast('rsvpSubmitted');
-
 				// user has submitted an RSVP; update create/edit status in case they edit without refreshing
 				_isCreate = false;
 				_isEdit = true;
