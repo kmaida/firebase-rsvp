@@ -7,6 +7,21 @@
 		.factory('Utils', Utils);
 
 	function Utils() {
+		function getUserPicture(user) {
+			var _provider = user.provider,
+				_profile = user[_provider].cachedUserProfile;
+
+			if (_provider === 'github') {
+				return _profile.avatar_url;
+			} else if (_provider === 'google') {
+				return _profile.picture;
+			} else if (_provider === 'twitter') {
+				return _profile.profile_image_url;
+			} else if (_provider === 'facebook') {
+				return _profile.picture.data.url;
+			}
+		}
+
 		/**
 		 * Get ordinal value
 		 *
@@ -21,6 +36,7 @@
 		}
 
 		return {
+			getUserPicture: getUserPicture,
 			getOrdinal: getOrdinal
 		};
 	}

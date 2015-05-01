@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('AccountCtrl', AccountCtrl);
 
-	AccountCtrl.$inject = ['$scope', '$location', 'Fire', '$timeout'];
+	AccountCtrl.$inject = ['$scope', '$location', 'Fire', 'Utils', 'OAUTH', '$timeout'];
 
-	function AccountCtrl($scope, $location, Fire, $timeout) {
+	function AccountCtrl($scope, $location, Fire, Utils, OAUTH, $timeout) {
 		// controllerAs ViewModel
 		var account = this;
 
@@ -15,8 +15,17 @@
 		// TODO: show user's RSVPs
 		// TODO: remove tabs (not necessary)
 
-		// Get user
+		account.data = Fire.data();
+
+		// get user synchronously and grab necessary data to display
 		account.user = Fire.ref.getAuth();
+		account.logins = OAUTH.LOGINS;
+
+		var _provider = account.user.provider;
+		var _profile = account.user[_provider].cachedUserProfile;
+
+		account.userName = account.user[_provider].displayName;
+		account.userPicture = Utils.getUserPicture(account.user);
 
 		var rsvpData = Fire.rsvps();
 

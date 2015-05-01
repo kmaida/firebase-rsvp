@@ -1,27 +1,17 @@
 <h2>
-	<i class="fa fa-pencil-square-o"></i> User Info
+	<i class="fa fa-user"></i> User Info
 </h2>
 
 <p class="lead">
-	Update your display name.
+	You are currently logged in with the following account:
 </p>
 
-<form method="post" name="userInfo" ng-submit="account.updateProfile()" class="form-inline">
-	<div class="form-group">
-		<label class="sr-only" for="displayName">Name</label>
-		<input id="displayName" type="text" class="form-control" name="displayName" ng-model="account.user.displayName"
-			   placeholder="Name" ng-required />
-	</div>
+<img class="user-picture" ng-src="{{account.userPicture}}">
+<span class="user-displayName">{{account.userName}}</span> <i ng-if="account.user.uid === account.data.master"
+															  class="fa fa-wrench"></i> <i
+		class="user-provider fa fa-{{account.user.provider}}" alt="{{account.user.provider}}"
+		title="{{account.user.provider}}"></i>
 
-	<button type="submit"
-			class="btn-save btn"
-			ng-class="{'btn-primary': !account.btnSaved, 'btn-success': account.btnSaved === true, 'btn-danger': account.btnSaved === 'error' || account.user.displayName === '' || account.user.displayName === null}"
-			ng-disabled="account.user.displayName === '' || account.user.displayName === null">
-		<i class="fa" ng-class="{'fa-download': !account.btnSaved, 'fa-check': account.btnSaved, 'fa-asterisk': account.user.displayName === '' || account.user.displayName === null, 'fa-ban': account.btnSaved === 'error'}"></i> {{account.btnSaveText}}
-	</button>
-</form>
-
-<div ng-if="account.administrator" class="alert alert-info">
-	<i class="fa fa-wrench"></i> <strong>Administrator:</strong> <a ng-href="/admin">Add events / view
-	users</a>
+<div ng-if="account.user.uid === account.data.master" class="alert alert-info">
+	<i class="fa fa-wrench"></i> <strong>Administrator:</strong> <a ng-href="/admin">Manage Events</a>
 </div>

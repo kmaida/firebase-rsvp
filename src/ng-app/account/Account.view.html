@@ -4,7 +4,7 @@
 
 		<h1 class="content-heading">My Account</h1>
 
-		<div ng-if="account.errorGettingUser" class="alert alert-danger">
+		<div ng-if="account.user === null" class="alert alert-danger">
 			<i class="fa fa-warning"></i> There was an error retrieving your information!
 		</div>
 
@@ -16,11 +16,16 @@
 				</li>
 			</ul>
 
+
 			<!-- User Info -->
-			<section ng-if="account.currentTab === 'user-info'" class="updateInfo content-section" ng-include="'ng-app/account/userInfo.tpl.html'"></section>
+			<section ng-if="account.currentTab === 'user-info'"
+					 class="userInfo content-section"
+					 ng-include="'ng-app/account/userInfo.tpl.html'"></section>
 
 			<!-- RSVPs -->
-			<section ng-if="account.currentTab === 'rsvps'" class="rsvps content-section" ng-include="'ng-app/account/rsvps.tpl.html'"></section>
+			<section ng-if="account.currentTab === 'rsvps'"
+					 class="rsvps content-section"
+					 ng-include="'ng-app/account/rsvps.tpl.html'"></section>
 		</div>
 
 	</section>
