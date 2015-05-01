@@ -33,7 +33,11 @@
 					g.guests = eventGuests;
 
 					for (var i = 0; i < g.guests.length; i++) {
-						_totalGuests += g.guests[i].guests;
+						var _thisGuest = g.guests[i];
+
+						if (_thisGuest.attending) {
+							_totalGuests += _thisGuest.guests;
+						}
 					}
 
 					g.totalGuests = _totalGuests;

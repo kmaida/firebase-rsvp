@@ -16,8 +16,6 @@
 		// synchronously retrieve user data
 		event.user = Fire.ref.getAuth();
 
-		var rsvps = Fire.rsvps();
-
 		event.showModal = false;
 
 		event.openRsvpModal = function() {
@@ -30,6 +28,10 @@
 		 * @private
 		 */
 		function _getUserRsvp() {
+
+			console.log('get user rsvp data!');
+			var rsvps = Fire.rsvps();
+
 			/**
 			 * RSVPs have been fetched successfully
 			 *

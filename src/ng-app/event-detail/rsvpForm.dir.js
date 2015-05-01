@@ -119,6 +119,10 @@
 			rf.submitRsvp = function() {
 				rf.btnSubmitText = 'Sending...';
 
+				if (!rf.formModel.attending) {
+					rf.formModel.guests = 0;
+				}
+
 				if (_isCreate) {
 					rsvps.$add(rf.formModel).then(_rsvpSuccess, _rsvpError);
 
