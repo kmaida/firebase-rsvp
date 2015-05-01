@@ -18,69 +18,60 @@
 
 		event.showModal = false;
 
-		/**
-		 * Open RSVP modal window
-		 */
 		event.openRsvpModal = function() {
 			event.showModal = true;
 		};
 
-		var rsvps = Fire.rsvps();
-
 		/**
-		 * Process RSVP and update UI appropriately
+		 * Get user's RSVP for this event
 		 *
 		 * @private
 		 */
-		function _processMyRsvp() {
-			event.noRsvp = !event.rsvpObj;
+		function _getUserRsvp() {
+			var rsvps = Fire.rsvps();
 
-			var guests = !event.noRsvp ? event.rsvpObj.guests : null;
+			/**
+			 * RSVPs have been fetched successfully
+			 *
+			 * @param data {object} returned from promise
+			 * @private
+			 */
+			function _rsvpsLoadedSuccess(data) {
+				var _rsvps = data;
 
-			if (!event.noRsvp && !!guests === false || guests == 1) {
-				event.guestText = event.rsvpObj.name + ' is';
-			} else if (guests && guests > 1) {
-				event.guestText = event.rsvpObj.name + ' + ' + (guests - 1) + ' are ';
-			}
+				for (var i = 0; i < _rsvps.length; i++) {
+					var thisRsvp = _rsvps[i];
 
-			event.attendingText = !event.noRsvp && event.rsvpObj.attending ? 'attending' : 'not attending';
-			event.rsvpBtnText = event.noRsvp ? 'RSVP' : 'Update my RSVP';
-			event.showEventDownload = event.rsvpObj && event.rsvpObj.attending;
-			event.createOrUpdate = event.noRsvp ? 'create' : 'update';
-			event.rsvpReady = true;
-		}
-
-		/**
-		 * RSVPs have been fetched successfully
-		 *
-		 * @param data {object} returned from promise
-		 * @private
-		 */
-		function _rsvpsLoadedSuccess(data) {
-			var _rsvps = data;
-
-			for (var i = 0; i < _rsvps.length; i++) {
-				var thisRsvp = _rsvps[i];
-
-				if (thisRsvp.eventId === _eventId && thisRsvp.userId === event.user.uid) {
-					event.rsvpObj = thisRsvp;
-					break;
+					if (thisRsvp.eventId === _eventId && thisRsvp.userId === event.user.uid) {
+						event.rsvpObj = thisRsvp;
+						break;
+					}
 				}
+
+				event.noRsvp = !event.rsvpObj;
+
+				var guests = !event.noRsvp ? event.rsvpObj.guests : null;
+
+				if (!event.noRsvp && !!guests === false || guests == 1) {
+					event.guestText = event.rsvpObj.name + ' is';
+				} else if (guests && guests > 1) {
+					event.guestText = event.rsvpObj.name + ' + ' + (guests - 1) + ' are ';
+				}
+
+				event.attendingText = !event.noRsvp && event.rsvpObj.attending ? 'attending' : 'not attending';
+				event.rsvpBtnText = event.noRsvp ? 'RSVP' : 'Update my RSVP';
+				event.showEventDownload = event.rsvpObj && event.rsvpObj.attending;
+				event.createOrUpdate = event.noRsvp ? 'create' : 'update';
+				event.rsvpReady = true;
 			}
 
-			_processMyRsvp();
+			rsvps.$loaded().then(_rsvpsLoadedSuccess);
 		}
 
-		// initial load of RSVPs
-		rsvps.$loaded().then(_rsvpsLoadedSuccess);
+		_getUserRsvp();
 
-		// watch for RSVP updates
-		rsvps.$watch(function(event) {
-			if (event.event === 'child_changed') {
-				event.rsvpObj = rsvps.$getRecord(event.key);
-				_processMyRsvp();
-			}
-		});
+		// when RSVP has been submitted, update user data
+		$rootScope.$on('rsvpSubmitted', _getUserRsvp);
 
 		/**
 		 * Generate .ics file for this event
