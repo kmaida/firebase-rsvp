@@ -16,16 +16,19 @@
 			var ef = this;
 
 			// check if form is create or edit
-			var _isCreate = jQuery.isEmptyObject(ef.prefillModel),
-				_isEdit = !jQuery.isEmptyObject(ef.prefillModel);
+			var _isCreate = !!ef.prefillModelId === false;
+			var _isEdit = !!ef.prefillModelId === true;
 
 			var events = Fire.events();
 
 			ef.timeRegex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/i;
 
-			if (_isEdit) {
-				ef.formModel = ef.prefillModel;
-			}
+			events.$loaded(function() {
+				if (_isEdit) {
+					ef.formModel = events.$getRecord(ef.prefillModelId);
+				}
+			});
+
 
 			// prevent selecting dates in the past
 			ef.minDate = new Date();
@@ -119,6 +122,8 @@
 				ef.btnSaved = 'error';
 				ef.btnSubmitText = _isCreate ? 'Error saving!' : 'Error updating!';
 
+				console.log('Error saving:', err);
+
 				$timeout(_btnSubmitReset, 3000);
 			}
 
@@ -150,8 +155,7 @@
 					events.$add(ef.formModel).then(_eventSuccess, _eventError);
 
 				} else if (_isEdit) {
-					// TODO: how to edit an existing event?
-					//eventData.updateEvent(ef.formModel._id, ef.formModel).then(_eventSuccess, _eventError);
+					events.$save(ef.formModel).then(_eventSuccess, _eventError);
 				}
 			};
 		}
@@ -159,7 +163,7 @@
 		return {
 			restrict: 'EA',
 			scope: {
-				prefillModel: '='
+				prefillModelId: '@'
 			},
 			templateUrl: '/ng-app/admin/eventForm.tpl.html',
 			controller: eventFormCtrl,

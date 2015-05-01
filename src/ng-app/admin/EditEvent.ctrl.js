@@ -14,12 +14,18 @@
 		// get the event ID
 		var _eventId = $routeParams.eventId;
 
+		// get events
 		var events = Fire.events();
 
 		// tabs
 		edit.tabs = ['Update Details', 'Delete Event'];
 		edit.currentTab = 0;
 
+		/**
+		 * Switch tabs
+		 *
+		 * @param index {number} tab index
+		 */
 		edit.changeTab = function(index) {
 			edit.currentTab = index;
 		};

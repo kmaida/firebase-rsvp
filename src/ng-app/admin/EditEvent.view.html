@@ -20,7 +20,7 @@
 					Edit details for <a ng-href="/event/{{edit.editEvent.$id}}">{{edit.editEvent.title}}</a>.
 				</p>
 
-				<event-form prefill-model="edit.editEvent"></event-form>
+				<event-form prefill-model-id="{{::edit.editEvent.$id}}"></event-form>
 			</section>
 
 			<section ng-if="edit.currentTab === 1" class="eventDelete content-section">
