@@ -37,19 +37,6 @@
 		aEvt.events = Fire.events();
 
 		/**
-		 * Function for successful API call getting all events
-		 * Show Admin Events UI
-		 * Display list of events
-		 *
-		 * @private
-		 */
-		function _getAllEventsSuccess() {
-			aEvt.eventsReady = true;
-		}
-
-		aEvt.events.$loaded(_getAllEventsSuccess);
-
-		/**
 		 * Custom sort function
 		 * Get event start date and change to real date to sort by
 		 *

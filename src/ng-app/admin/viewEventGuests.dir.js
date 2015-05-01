@@ -5,9 +5,9 @@
 		.module('myApp')
 		.directive('viewEventGuests', viewEventGuests);
 
-	viewEventGuests.$inject = ['rsvpData'];
+	viewEventGuests.$inject = ['Fire'];
 
-	function viewEventGuests(rsvpData) {
+	function viewEventGuests(Fire) {
 
 		viewEventGuestsCtrl.$inject = ['$scope'];
 
@@ -15,17 +15,22 @@
 			// controllerAs syntax
 			var g = this;
 
-			$scope.$watch('g.eventId', function(newVal, oldVal) {
+			var rsvpData = Fire.rsvps();
+
+			function _rsvpDataLoaded(data) {
+				var _allRsvps = data;
+
 				/**
-				 * Function for successful API call getting RSVPs for this event
+				 * Set up guestlist for view
+				 * Set up guest counts for view
 				 *
-				 * @param data {Array} guests array
+				 * @param eventGuests {Array} guests who have RSVPed to specific event
 				 * @private
 				 */
-				function _getGuestsSuccess(data) {
+				function _showEventGuests(eventGuests) {
 					var _totalGuests = 0;
 
-					g.guests = data;
+					g.guests = eventGuests;
 
 					for (var i = 0; i < g.guests.length; i++) {
 						_totalGuests += g.guests[i].guests;
@@ -35,12 +40,29 @@
 					g.guestsReady = true;
 				}
 
-				if (newVal) {
-					g.guestsReady = false;
+				/**
+				 * $watch event ID and collect updated sets of guests
+				 */
+				$scope.$watch('g.eventId', function (newVal, oldVal) {
+					if (newVal) {
+						var _eventGuests = [];
+						g.guestsReady = false;
 
-					rsvpData.getEventGuests(newVal).then(_getGuestsSuccess);
-				}
-			});
+						for (var n = 0; n < _allRsvps.length; n++) {
+							var _thisGuest = _allRsvps[n];
+
+							if (_thisGuest.eventId === g.eventId) {
+								_eventGuests.push(_thisGuest);
+							}
+						}
+
+						_showEventGuests(_eventGuests);
+
+					}
+				});
+			}
+
+			rsvpData.$loaded().then(_rsvpDataLoaded);
 
 			/**
 			 * Close this modal directive
