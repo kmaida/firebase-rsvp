@@ -8,7 +8,7 @@
 			<i class="fa fa-warning"></i> There was an error retrieving your information!
 		</div>
 
-		<div ng-if="account.isAuthenticated() && account.showAccount">
+		<div ng-if="account.user">
 
 			<ul class="nav nav-tabs adminTabs">
 				<li ng-repeat="tab in account.tabs" role="presentation" ng-class="{active: account.currentTab === tab.query}">
@@ -18,9 +18,6 @@
 
 			<!-- User Info -->
 			<section ng-if="account.currentTab === 'user-info'" class="updateInfo content-section" ng-include="'ng-app/account/userInfo.tpl.html'"></section>
-
-			<!-- Manage Logins -->
-			<section ng-if="account.currentTab === 'manage-logins'" class="linkAccounts content-section" ng-include="'ng-app/account/manageLogins.tpl.html'"></section>
 
 			<!-- RSVPs -->
 			<section ng-if="account.currentTab === 'rsvps'" class="rsvps content-section" ng-include="'ng-app/account/rsvps.tpl.html'"></section>

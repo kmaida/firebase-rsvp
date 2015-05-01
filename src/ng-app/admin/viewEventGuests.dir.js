@@ -57,7 +57,6 @@
 						}
 
 						_showEventGuests(_eventGuests);
-
 					}
 				});
 			}

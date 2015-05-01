@@ -5,23 +5,38 @@
 		.module('myApp')
 		.controller('AccountCtrl', AccountCtrl);
 
-	AccountCtrl.$inject = ['$scope', '$location', '$auth', 'userData', '$timeout', 'OAUTH', 'User'];
+	AccountCtrl.$inject = ['$scope', '$location', 'Fire', '$timeout'];
 
-	function AccountCtrl($scope, $location, $auth, userData, $timeout, OAUTH, User) {
+	function AccountCtrl($scope, $location, Fire, $timeout) {
 		// controllerAs ViewModel
 		var account = this;
 
-		// All available login services
-		account.logins = OAUTH.LOGINS;
+		// TODO: show user's general information
+		// TODO: show user's RSVPs
+		// TODO: remove tabs (not necessary)
 
-		/**
-		 * Is the user authenticated?
-		 *
-		 * @returns {boolean}
-		 */
-		account.isAuthenticated = function() {
-			return $auth.isAuthenticated();
-		};
+		// Get user
+		account.user = Fire.ref.getAuth();
+
+		var rsvpData = Fire.rsvps();
+
+		function _getMyRsvps(data) {
+			account.rsvps = [];
+
+			var _allRsvps = data;
+
+			for (var n = 0; n < _allRsvps.length; n++) {
+				var _this = _allRsvps[n];
+
+				if (_this.userId === account.user.uid) {
+					account.rsvps.push(_this);
+				}
+			}
+
+			account.rsvpsReady = true;
+		}
+
+		rsvpData.$loaded().then(_getMyRsvps);
 
 		var _tab = $location.search().view;
 
@@ -29,10 +44,6 @@
 			{
 				name: 'User Info',
 				query: 'user-info'
-			},
-			{
-				name: 'Manage Logins',
-				query: 'manage-logins'
 			},
 			{
 				name: 'RSVPs',
@@ -82,105 +93,5 @@
 			userData.getUser().then(_getUserSuccess, _getUserError);
 		};
 
-		/**
-		 * Reset profile save button to initial state
-		 *
-		 * @private
-		 */
-		function _btnSaveReset() {
-			account.btnSaved = false;
-			account.btnSaveText = 'Save';
-		}
-
-		_btnSaveReset();
-
-		/**
-		 * Watch display name changes to check for empty or null string
-		 * Set button text accordingly
-		 *
-		 * @param newVal {string} updated displayName value from input field
-		 * @param oldVal {*} previous displayName value
-		 * @private
-		 */
-		function _watchDisplayName(newVal, oldVal) {
-			if (newVal === '' || newVal === null) {
-				account.btnSaveText = 'Enter Name';
-			} else {
-				account.btnSaveText = 'Save';
-			}
-		}
-		$scope.$watch('account.user.displayName', _watchDisplayName);
-
-		/**
-		 * Update user's profile information
-		 * Called on submission of update form
-		 */
-		account.updateProfile = function() {
-			var profileData = { displayName: account.user.displayName };
-
-			/**
-			 * Success callback when profile has been updated
-			 *
-			 * @private
-			 */
-			function _updateSuccess() {
-				account.btnSaved = true;
-				account.btnSaveText = 'Saved!';
-
-				$timeout(_btnSaveReset, 2500);
-			}
-
-			/**
-			 * Error callback when profile update has failed
-			 *
-			 * @private
-			 */
-			function _updateError() {
-				account.btnSaved = 'error';
-				account.btnSaveText = 'Error saving!';
-
-				$timeout(_btnSaveReset, 3000);
-			}
-
-			if (!!account.user.displayName) {
-				// Set status to Saving... and update upon success or error in callbacks
-				account.btnSaveText = 'Saving...';
-
-				// Update the user, passing profile data and assigning success and error callbacks
-				userData.updateUser(profileData).then(_updateSuccess, _updateError);
-			}
-		};
-
-		/**
-		 * Link third-party provider
-		 *
-		 * @param {string} provider
-		 */
-		account.link = function(provider) {
-			$auth.link(provider)
-				.then(function() {
-					account.getProfile();
-				})
-				.catch(function(response) {
-					alert(response.data.message);
-				});
-		};
-
-		/**
-		 * Unlink third-party provider
-		 *
-		 * @param {string} provider
-		 */
-		account.unlink = function(provider) {
-			$auth.unlink(provider)
-				.then(function() {
-					account.getProfile();
-				})
-				.catch(function(response) {
-					alert(response.data ? response.data.message : 'Could not unlink ' + provider + ' account');
-				});
-		};
-
-		account.getProfile();
 	}
 })();
