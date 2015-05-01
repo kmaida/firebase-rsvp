@@ -5,14 +5,16 @@
 		.module('myApp')
 		.controller('EditEventCtrl', EditEventCtrl);
 
-	EditEventCtrl.$inject = ['$auth', 'userData', 'eventData', '$routeParams', '$location', '$timeout'];
+	EditEventCtrl.$inject = ['Fire', '$routeParams', '$location', '$timeout'];
 
-	function EditEventCtrl($auth, userData, eventData, $routeParams, $location, $timeout) {
+	function EditEventCtrl(Fire, $routeParams, $location, $timeout) {
 		// controllerAs ViewModel
 		var edit = this;
 
 		// get the event ID
 		var _eventId = $routeParams.eventId;
+
+		var events = Fire.events();
 
 		// tabs
 		edit.tabs = ['Update Details', 'Delete Event'];
@@ -22,32 +24,24 @@
 			edit.currentTab = index;
 		};
 
-		// verify that user is admin
-		userData.getUser().then(function(data) {
-			edit.showEdit = data.isAdmin ? true : false;
-		});
+		// synchronously retrieve user data
+		edit.user = Fire.ref.getAuth();
+
+		// get data from the database
+		edit.data = Fire.data();
 
 		/**
-		 * Determines if the user is authenticated
+		 * Function for successful API call getting single event detail
 		 *
-		 * @returns {boolean}
-		 */
-		edit.isAuthenticated = function() {
-			return $auth.isAuthenticated();
-		};
-
-		/**
-		 * Function returned on successful API call for this event
-		 *
-		 * @param data {object} event data
+		 * @param data {object} events data
 		 * @private
 		 */
-		function _getEventSuccess(data) {
-			edit.editEvent = data;
+		function _eventSuccess(data) {
+			edit.editEvent = events.$getRecord(_eventId);
 			edit.showEditForm = true;
 		}
 
-		eventData.getEvent(_eventId).then(_getEventSuccess);
+		events.$loaded(_eventSuccess);
 
 		/**
 		 * Reset the delete button to default state
@@ -92,8 +86,7 @@
 		 */
 		edit.deleteEvent = function() {
 			edit.btnDeleteText = 'Deleting...';
-
-			eventData.deleteEvent(_eventId).then(_deleteSuccess, _deleteError);
+			events.$remove(edit.editEvent).then(_deleteSuccess, _deleteError);
 		};
 	}
 })();

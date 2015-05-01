@@ -5,11 +5,11 @@
 		.module('myApp')
 		.controller('EventDetailCtrl', EventDetailCtrl);
 
-	EventDetailCtrl.$inject = ['$scope', '$routeParams', 'Fire', '$rootScope', 'Event'];
+	EventDetailCtrl.$inject = ['$scope', '$routeParams', 'Fire', 'Event'];
 
-	function EventDetailCtrl($scope, $routeParams, Fire, $rootScope, Event) {
-		var event = this,
-			_eventId = $routeParams.eventId;
+	function EventDetailCtrl($scope, $routeParams, Fire, Event) {
+		var event = this;
+		var _eventId = $routeParams.eventId;
 
 		// synchronously retrieve user data
 		event.user = Fire.ref.getAuth();

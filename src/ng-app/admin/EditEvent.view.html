@@ -3,7 +3,7 @@
 
 		<h1 class="content-heading">Edit Event</h1>
 
-		<div ng-if="edit.isAuthenticated() && edit.showEdit">
+		<div ng-if="edit.user && edit.data && (edit.user.uid === edit.data.master)">
 
 			<ul class="nav nav-tabs editTabs">
 				<li ng-repeat="tab in edit.tabs" role="presentation" ng-class="{active: edit.currentTab === $index}">
@@ -17,7 +17,7 @@
 				</h2>
 
 				<p class="lead">
-					Edit details for <a ng-href="/event/{{edit.editEvent._id}}">{{edit.editEvent.title}}</a>.
+					Edit details for <a ng-href="/event/{{edit.editEvent.$id}}">{{edit.editEvent.title}}</a>.
 				</p>
 
 				<event-form prefill-model="edit.editEvent"></event-form>
@@ -43,7 +43,7 @@
 
 					<button class="btn"
 							ng-class="{'btn-danger': !edit.btnDelete || edit.btnDelete === 'error', 'btn-success': edit.btnDelete}"
-							ng-click="edit.deleteEvent(edit.editEvent._id)"
+							ng-click="edit.deleteEvent(edit.editEvent.$id)"
 							ng-disabled="!edit.confirmDelete">
 						<i class="fa" ng-class="{'fa-trash': !edit.btnDelete, 'fa-check': edit.btnDelete, 'fa-ban': edit.btnDelete === 'error'}"></i> {{edit.btnDeleteText}}
 					</button>
@@ -51,7 +51,7 @@
 			</section>
 		</div>
 
-		<div ng-if="edit.showEdit === false" class="alert alert-danger">
+		<div ng-if="!!edit.user && !!edit.data && (edit.user.uid !== edit.data.master)" class="alert alert-danger">
 			<i class="fa fa-warning"></i> You are not authorized to view this page.
 		</div>
 
