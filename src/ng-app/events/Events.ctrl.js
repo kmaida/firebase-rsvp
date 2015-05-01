@@ -10,11 +10,10 @@
 	function EventsCtrl(Fire, Event) {
 		var events = this;
 
-		var _auth = Fire.auth();
+		events.allEvents = Fire.events();
 
-		_auth.$onAuth(function(authData) {
-			events.isAuthenticated = !!authData;
-		});
+		// synchronously retrieve user data
+		events.user = Fire.ref.getAuth();
 
 		/**
 		 * Function for successful API call getting events list
@@ -23,8 +22,6 @@
 		 * @private
 		 */
 		function _eventsSuccess(data) {
-			events.allEvents = data;
-
 			for (var i = 0; i < events.allEvents.length; i++) {
 				var thisEvt = events.allEvents[i];
 
@@ -35,7 +32,7 @@
 			events.eventsReady = true;
 		}
 
-		eventData.getAllEvents().then(_eventsSuccess);
+		events.allEvents.$loaded().then(_eventsSuccess);
 
 		/**
 		 * Custom sort function
