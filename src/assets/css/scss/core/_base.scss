@@ -15,6 +15,10 @@
 
 a {
 	cursor: pointer;
+
+	&:focus {
+		outline: 0 none;
+	}
 }
 
 /*-- Inline link touch targets --*/
