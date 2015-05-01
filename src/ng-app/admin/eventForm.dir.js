@@ -51,11 +51,21 @@
 			};
 
 			/**
+			 * Transform dates to a format AngularFire will save to Firebase
+			 * AngularFire wontfix bug: https://github.com/firebase/angularfire/issues/381
+			 *
+			 * @return {string} mm/dd/yyyy
+			 */
+			function _formatDate(date) {
+				return $filter('date')(date, 'MM/dd/yyyy');
+			}
+
+			/**
 			 * On start date valid blur, update end date if empty
 			 */
 			ef.startDateBlur = function() {
 				if (ef.formModel && ef.formModel.startDate && !ef.formModel.endDate) {
-					ef.formModel.endDate = $filter('date')(ef.formModel.startDate, 'MM/dd/yyyy');
+					ef.formModel.endDate = _formatDate(ef.formModel.startDate);
 				}
 			};
 
@@ -133,6 +143,9 @@
 			 * Form @ eventForm.tpl.html
 			 */
 			ef.submitEvent = function() {
+				ef.formModel.startDate = _formatDate(ef.formModel.startDate);
+				ef.formModel.endDate = _formatDate(ef.formModel.endDate);
+
 				if (_isCreate) {
 					events.$add(ef.formModel).then(_eventSuccess, _eventError);
 

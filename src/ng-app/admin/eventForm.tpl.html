@@ -39,7 +39,7 @@
 						   min-date="ef.minDate"
 						   datepicker-options="ef.dateOptions"
 						   close-text="Close"
-						   ng-blur="ef.startDateBlur(); ef.validateDaterange()"
+						   ng-blur="ef.dateBlur(ef.formModel.startDate); ef.startDateBlur(); ef.validateDaterange()"
 						   required />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'startDate')"><i class="fa fa-calendar"></i></button>
@@ -94,7 +94,7 @@
 						   min-date="ef.minDate"
 						   datepicker-options="ef.dateOptions"
 						   close-text="Close"
-						   ng-blur="ef.validateDaterange()"
+						   ng-blur="eventForm.startDate.$valid ? ef.dateBlur(ef.formModel.endDate) : null; ef.validateDaterange()"
 						   required />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'endDate')"><i class="fa fa-calendar"></i></button>
@@ -181,6 +181,8 @@
 					   ng-model="ef.formModel.viewPublic">No
 			</label>
 		</div>
+
+		<pre>{{ef.formModel | json}}</pre>
 
 		<div ng-if="eventForm.viewPublic.$invalid" ng-messages="eventForm.viewPublic.$error" class="text-danger">
 			<span ng-message="required">Public is <strong>required</strong></span>
