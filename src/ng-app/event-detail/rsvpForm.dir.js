@@ -102,9 +102,11 @@
 			 *
 			 * @private
 			 */
-			function _rsvpError() {
+			function _rsvpError(err) {
 				rf.btnSaved = 'error';
 				rf.btnSubmitText = _isCreate ? 'Error submitting!' : 'Error updating!';
+
+				console.log(rf.btnSubmitText, err);
 
 				$timeout(_btnSubmitReset, 3000);
 			}

@@ -23,12 +23,11 @@
 
 			ef.timeRegex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/i;
 
-			events.$loaded().then(function() {
-				if (_isEdit) {
+			if (_isEdit) {
+				events.$loaded().then(function () {
 					ef.formModel = events.$getRecord(ef.prefillModelId);
-				}
-			});
-
+				});
+			}
 
 			// prevent selecting dates in the past
 			ef.minDate = new Date();
@@ -122,7 +121,7 @@
 				ef.btnSaved = 'error';
 				ef.btnSubmitText = _isCreate ? 'Error saving!' : 'Error updating!';
 
-				console.log('Error saving:', err);
+				console.log(ef.btnSubmitText, err);
 
 				$timeout(_btnSubmitReset, 3000);
 			}
