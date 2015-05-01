@@ -23,7 +23,7 @@
 
 			ef.timeRegex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/i;
 
-			events.$loaded(function() {
+			events.$loaded().then(function() {
 				if (_isEdit) {
 					ef.formModel = events.$getRecord(ef.prefillModelId);
 				}

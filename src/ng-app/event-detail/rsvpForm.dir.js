@@ -16,19 +16,26 @@
 			var rf = this;
 
 			// check if form is create or edit (does the model already exist or not)
-			var _isCreate = !rf.formModel,
-				_isEdit = !!rf.formModel;
+			var _isCreate = !!rf.formModelId === false,
+				_isEdit = !!rf.formModelId === true;
 
 			var rsvps = Fire.rsvps();
 
 			rf.numberRegex = /^([1-9]|10)$/;
 
-			if (_isCreate && rf.userName) {
+			if (_isCreate) {
 				rf.formModel = {
 					userId: rf.userId,
 					eventName: rf.event.title,
+					eventId: rf.event.$id,
 					name: rf.userName
 				};
+			}
+
+			if (_isEdit) {
+				rsvps.$loaded(function () {
+					rf.formModel = rsvps.$getRecord(rf.formModelId);
+				});
 			}
 
 			/**
@@ -114,9 +121,7 @@
 					rsvps.$add(rf.formModel).then(_rsvpSuccess, _rsvpError);
 
 				} else if (_isEdit) {
-					//TODO: https://www.firebase.com/docs/web/libraries/angular/api.html#angularfire-firebasearray-saverecordorindex
-					//rsvps.$save()
-					//rsvpData.updateRsvp(rf.formModel._id, rf.formModel).then(_rsvpSuccess, _rsvpError);
+					rsvps.$save(rf.formModel).then(_rsvpSuccess, _rsvpError);
 				}
 			};
 
@@ -134,7 +139,7 @@
 				event: '=',
 				userName: '@',
 				userId: '@',
-				formModel: '=',
+				formModelId: '@',
 				showModal: '='
 			},
 			templateUrl: '/ng-app/event-detail/rsvpForm.tpl.html',

@@ -5,23 +5,18 @@
 		.module('myApp')
 		.controller('EventDetailCtrl', EventDetailCtrl);
 
-	EventDetailCtrl.$inject = ['$scope', '$routeParams', 'Fire', 'Event'];
+	EventDetailCtrl.$inject = ['$scope', '$rootScope', '$routeParams', 'Fire', 'Event'];
 
-	function EventDetailCtrl($scope, $routeParams, Fire, Event) {
+	function EventDetailCtrl($scope, $rootScope, $routeParams, Fire, Event) {
 		var event = this;
 		var _eventId = $routeParams.eventId;
+
+		event.data = Fire.data();
 
 		// synchronously retrieve user data
 		event.user = Fire.ref.getAuth();
 
-		/**
-		 * Determines if the user is authenticated
-		 *
-		 * @returns {boolean}
-		 */
-		event.isAuthenticated = function() {
-			return !!event.user;
-		};
+		var rsvps = Fire.rsvps();
 
 		event.showModal = false;
 
@@ -29,63 +24,54 @@
 			event.showModal = true;
 		};
 
-
-		// TODO: get the user's RSVPs by three-way-binding!!
-
 		/**
-		 * Fetch the user's data and process RSVP information
+		 * Get user's RSVP for this event
 		 *
 		 * @private
 		 */
-		//function _getUserData() {
-		//
-		//	/**
-		//	 * Function for successful API call retrieving user data
-		//	 * Check if user is admin
-		//	 * Then calls RSVP data and determines if user has RSVPed to this event
-		//	 *
-		//	 * @param data {object} promise provided by $http success
-		//	 * @private
-		//	 */
-		//	function _userSuccess(data) {
-		//		event.user = data;
-		//		event.isAdmin = data.isAdmin;
-		//
-		//		var _rsvps = event.user.rsvps;
-		//
-		//		for (var i = 0; i < _rsvps.length; i++) {
-		//			var thisRsvp = _rsvps[i];
-		//
-		//			if (thisRsvp.eventId === _eventId) {
-		//				event.rsvpObj = thisRsvp;
-		//				break;
-		//			}
-		//		}
-		//
-		//		event.noRsvp = !event.rsvpObj;
-		//
-		//		var guests = !event.noRsvp ? event.rsvpObj.guests : null;
-		//
-		//		if (!event.noRsvp && !!guests === false || guests == 1) {
-		//			event.guestText = event.rsvpObj.name + ' is';
-		//		} else if (guests && guests > 1) {
-		//			event.guestText = event.rsvpObj.name + ' + ' + (guests - 1) + ' are ';
-		//		}
-		//
-		//		event.attendingText = !event.noRsvp && event.rsvpObj.attending ? 'attending' : 'not attending';
-		//		event.rsvpBtnText = event.noRsvp ? 'RSVP' : 'Update my RSVP';
-		//		event.showEventDownload = event.rsvpObj && event.rsvpObj.attending;
-		//		event.createOrUpdate = event.noRsvp ? 'create' : 'update';
-		//		event.rsvpReady = true;
-		//	}
-		//
-		//	//userData.getUser().then(_userSuccess);
-		//}
-		//
-		//_getUserData();
-		//
-		//// when RSVP has been submitted, update user data
-		//$rootScope.$on('rsvpSubmitted', _getUserData);
+		function _getUserRsvp() {
+			/**
+			 * RSVPs have been fetched successfully
+			 *
+			 * @param data {object} returned from promise
+			 * @private
+			 */
+			function _rsvpsLoadedSuccess(data) {
+				var _rsvps = data;
+
+				for (var i = 0; i < _rsvps.length; i++) {
+					var thisRsvp = _rsvps[i];
+
+					if (thisRsvp.eventId === _eventId && thisRsvp.userId === event.user.uid) {
+						event.rsvpObj = thisRsvp;
+						break;
+					}
+				}
+
+				event.noRsvp = !event.rsvpObj;
+
+				var guests = !event.noRsvp ? event.rsvpObj.guests : null;
+
+				if (!event.noRsvp && !!guests === false || guests == 1) {
+					event.guestText = event.rsvpObj.name + ' is';
+				} else if (guests && guests > 1) {
+					event.guestText = event.rsvpObj.name + ' + ' + (guests - 1) + ' are ';
+				}
+
+				event.attendingText = !event.noRsvp && event.rsvpObj.attending ? 'attending' : 'not attending';
+				event.rsvpBtnText = event.noRsvp ? 'RSVP' : 'Update my RSVP';
+				event.showEventDownload = event.rsvpObj && event.rsvpObj.attending;
+				event.createOrUpdate = event.noRsvp ? 'create' : 'update';
+				event.rsvpReady = true;
+			}
+
+			rsvps.$loaded().then(_rsvpsLoadedSuccess);
+		}
+
+		_getUserRsvp();
+
+		// when RSVP has been submitted, update user data
+		$rootScope.$on('rsvpSubmitted', _getUserRsvp);
 
 		/**
 		 * Generate .ics file for this event

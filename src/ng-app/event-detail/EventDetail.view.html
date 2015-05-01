@@ -2,13 +2,10 @@
 	<section id="content-main" class="content-main eventDetail-content clearfix" ng-controller="EventDetailCtrl as event"
 			 ng-cloak>
 
-		<pre>{{event.detail | json}}</pre>
-
-		<!--<div ng-if="event.isAuthenticated() && event.eventReady && event.rsvpReady">-->
-		<div ng-if="event.isAuthenticated() && event.eventReady">
+		<div ng-if="event.user && event.eventReady && event.rsvpReady">
 			<h1 class="content-heading">
 				{{::event.detail.title}}
-				<small ng-if="event.isAdmin">[<a ng-href="event/{{event.detail.$id}}/edit">edit</a>]</small>
+				<small ng-if="event.user.uid === event.data.master">[<a ng-href="event/{{event.detail.$id}}/edit">edit</a>]</small>
 			</h1>
 
 			<p class="eventDetail-datetime">
@@ -60,7 +57,7 @@
 
 				<rsvp-form ng-if="!event.detail.expired && event.detail.rsvp"
 						   event="event.detail"
-						   form-model="event.rsvpObj"
+						   form-model-id="{{::event.rsvpObj.$id}}"
 						   user-name="{{::event.user[event.user.provider].displayName}}"
 						   user-id="{{::event.user.uid}}"
 						   show-modal="event.showModal"></rsvp-form>
