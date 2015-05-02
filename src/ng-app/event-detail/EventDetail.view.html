@@ -2,7 +2,7 @@
 	<section id="content-main" class="content-main eventDetail-content clearfix" ng-controller="EventDetailCtrl as event"
 			 ng-cloak>
 
-		<div ng-if="event.user && event.eventReady && event.rsvpReady">
+		<div ng-if="event.user && event.detail && event.eventReady && event.rsvpReady">
 			<h1 class="content-heading">
 				{{::event.detail.title}}
 				<small ng-if="event.user.uid === event.data.master">[<a ng-href="event/{{event.detail.$id}}/edit">edit</a>]</small>
@@ -63,6 +63,10 @@
 						   show-modal="event.showModal"></rsvp-form>
 			</div>
 
+		</div>
+
+		<div ng-if="!event.detail && event.rsvpReady" class="alert alert-danger">
+			<i class="fa fa-ban"></i> This event does not exist!
 		</div>
 
 	</section>

@@ -3,7 +3,7 @@
 
 		<h1 class="content-heading">Edit Event</h1>
 
-		<div ng-if="edit.user && edit.data && (edit.user.uid === edit.data.master)">
+		<div ng-if="edit.user && edit.data && edit.editEvent && (edit.user.uid === edit.data.master)">
 
 			<ul class="nav nav-tabs editTabs">
 				<li ng-repeat="tab in edit.tabs" role="presentation" ng-class="{active: edit.currentTab === $index}">
@@ -51,8 +51,12 @@
 			</section>
 		</div>
 
-		<div ng-if="!!edit.user && !!edit.data && (edit.user.uid !== edit.data.master)" class="alert alert-danger">
+		<div ng-if="edit.user && edit.data && (edit.user.uid !== edit.data.master)" class="alert alert-danger">
 			<i class="fa fa-warning"></i> You are not authorized to view this page.
+		</div>
+
+		<div ng-if="!edit.editEvent && edit.showEditForm" class="alert alert-danger">
+			<i class="fa fa-ban"></i> This event does not exist!
 		</div>
 
 	</section>

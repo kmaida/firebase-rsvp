@@ -101,8 +101,12 @@
 		 */
 		function _eventSuccess(data) {
 			event.detail = events.$getRecord(_eventId);
-			event.detail.prettyDate = Event.getPrettyDatetime(event.detail);
-			event.detail.expired = Event.expired(event.detail);
+
+			if (event.detail) {
+				event.detail.prettyDate = Event.getPrettyDatetime(event.detail);
+				event.detail.expired = Event.expired(event.detail);
+			}
+
 			event.eventReady = true;
 		}
 
