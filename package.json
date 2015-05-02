@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "author": "Kim Maida",
   "description": "RSVP Angular / AngularFire / Firebase application",
-  "main": "public/index.html",
+  "main": "src/index.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/kmaida/firebase-rsvp"
@@ -14,12 +14,9 @@
     "angularfire",
     "javascript"
   ],
-  "license": "Restricted",
+  "license": "GNU GPL",
   "bugs": {
     "url": "https://github.com/kmaida/firebase-rsvp/issues"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "http://rsvp.kmaida.io",
   "devDependencies": {

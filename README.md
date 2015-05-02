@@ -1,6 +1,6 @@
 # firebase-rsvp
 
-Firebase RSVP application
+Firebase RSVP single-page application
 
 * AngularJS (with [reStart-angular](https://github.com/kmaida/reStart-angular))
 * Firebase ([Firebase](http://www.firebase.com))
@@ -10,3 +10,7 @@ Firebase RSVP application
 * Bootstrap 3
 * jQuery
 * Gulp
+
+## Changelog
+
+* **v.0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend
