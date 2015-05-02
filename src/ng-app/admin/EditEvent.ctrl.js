@@ -91,7 +91,25 @@
 		 * Delete the event
 		 */
 		edit.deleteEvent = function() {
+			var rsvps = Fire.rsvps();
+
 			edit.btnDeleteText = 'Deleting...';
+
+			/**
+			 * Delete all RSVPs associated with the deleted event
+			 *
+			 * @private
+			 */
+			function _deleteRsvps() {
+				angular.forEach(rsvps, function(rsvp) {
+					if (rsvp.eventId === edit.editEvent.$id) {
+						rsvps.$remove(rsvp);
+					}
+				});
+			}
+			rsvps.$loaded().then(_deleteRsvps);
+
+			// delete the event
 			events.$remove(edit.editEvent).then(_deleteSuccess, _deleteError);
 		};
 	}

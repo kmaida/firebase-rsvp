@@ -8,11 +8,24 @@
 </p>
 
 <div class="rsvps" ng-if="account.rsvps.length">
-	<ul>
-		<li ng-repeat="rsvp in account.rsvps">
-			<a ng-href="/event/{{rsvp.eventId}}">{{rsvp.eventName}}</a>
-		</li>
-	</ul>
+	<table class="table table-responsive table-condensed">
+		<thead>
+		<tr>
+			<th>Event</th>
+			<th class="text-center">Attending</th>
+			<th class="text-center">RSVPed for</th>
+			<th>Comments</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="rsvp in account.rsvps">
+			<td><a ng-href="/event/{{::rsvp.eventId}}">{{::rsvp.eventName}}</a></td>
+			<td class="text-center">{{::rsvp.attending ? 'Yes' : 'No'}}</td>
+			<td class="text-center">{{::rsvp.attending ? rsvp.guests : ''}}</td>
+			<td ng-bind-html="rsvp.comments"></td>
+		</tr>
+		</tbody>
+	</table>
 </div>
 
 <div ng-if="account.rsvpsReady && !account.rsvps.length" class="alert alert-warning">You have not RSVPed to any currently available <a ng-href="events">events</a>.</div>
