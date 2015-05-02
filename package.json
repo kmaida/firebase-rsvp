@@ -1,6 +1,6 @@
 {
   "name": "RSVP",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Kim Maida",
   "description": "RSVP Angular / AngularFire / Firebase application",
   "main": "src/index.html",

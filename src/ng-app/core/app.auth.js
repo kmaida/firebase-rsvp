@@ -12,6 +12,9 @@
 			var _isAuthenticated = Fire.ref.getAuth();
 
 			if (next && next.$$route) {
+
+				// if not authenticated, redirect to login page
+				// if possible, after login, redirect to intended route (large mq)
 				if (next.$$route.secure && !_isAuthenticated) {
 					$rootScope.authPath = $location.path();
 
@@ -21,6 +24,7 @@
 					});
 				}
 
+				// if attempting to access /login route and already logged in, redirect to homepage
 				if (next.$$route.originalPath === '/login' && _isAuthenticated) {
 					$rootScope.$evalAsync(function() {
 						if ($rootScope.authPath) {

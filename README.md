@@ -13,4 +13,5 @@ Firebase RSVP single-page application
 
 ## Changelog
 
+* **v.0.2.1** - 5/02/15: Device tested and device-related bugs resolved
 * **v.0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend

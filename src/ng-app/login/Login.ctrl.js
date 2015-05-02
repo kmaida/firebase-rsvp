@@ -14,16 +14,22 @@
 		// Firebase authentication
 		var _auth = Fire.auth();
 
+		// in case authRun() fails to redirect earlier
 		_auth.$onAuth(function(authData) {
 			if (authData) {
 				$location.path('/');
 			}
 		});
 
+		/**
+		 * Local data successfully retrieved
+		 *
+		 * @param data {json}
+		 * @private
+		 */
 		function _localDataSuccess(data) {
 			login.localData = data;
 		}
-
 		localData.getJSON().then(_localDataSuccess);
 
 		login.logins = OAUTH.LOGINS;
@@ -85,7 +91,11 @@
 				_auth.$authWithOAuthRedirect(provider, _authError);
 			}
 
-			// initialize mediaCheck
+			/**
+			 * Initialize mediaCheck
+			 * When small MQ, redirect with Oauth
+			 * When large MQ, log in with Oauth popup
+			 */
 			mediaCheck.init({
 				scope: $scope,
 				mq: MQ.SMALL,

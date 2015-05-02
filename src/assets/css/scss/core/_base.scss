@@ -28,7 +28,7 @@ a {
 	padding: 0 .5em;
 }
 
-/*-- Form validation classes --*/
+/*-- Forms --*/
 
 input.ng-dirty.ng-invalid {
 	border-color: $color-invalid-rgba;
@@ -36,6 +36,17 @@ input.ng-dirty.ng-invalid {
 }
 div[ng-messages] {
 	margin-top: 4px;
+}
+
+/* For iOS autozoom */
+.form-control,
+.radio label,
+.checkbox label {
+	font-size: 16px;
+
+	@include mq($mq-large) {
+		font-size: 14px;
+	}
 }
 
 /*--------------------

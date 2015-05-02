@@ -5,7 +5,7 @@
 		.module('myApp')
 		.directive('validateDateFuture', validateDateFuture);
 
-	validateDateFuture.$inject = ['eventData', '$timeout', '$location', '$filter', 'Event'];
+	validateDateFuture.$inject = ['$timeout', '$location', '$filter', 'Event'];
 
 	function validateDateFuture() {
 
