@@ -16,6 +16,16 @@
 		// get data from the database
 		admin.data = Fire.data();
 
+		/**
+		 * Determine if admin can be shown or if error message should be shown
+		 *
+		 * @private
+		 */
+		function _showAdmin() {
+			admin.showAdmin = admin.user.uid === admin.data.master;
+		}
+		admin.data.$loaded().then(_showAdmin);
+
 		var _tab = $location.search().view;
 
 		admin.tabs = [

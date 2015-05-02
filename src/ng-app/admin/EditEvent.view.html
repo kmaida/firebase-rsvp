@@ -51,7 +51,7 @@
 			</section>
 		</div>
 
-		<div ng-if="edit.user && edit.data && (edit.user.uid !== edit.data.master)" class="alert alert-danger">
+		<div ng-if="edit.user && edit.data && (edit.user.uid !== edit.data.master) && edit.showEditForm" class="alert alert-danger">
 			<i class="fa fa-warning"></i> You are not authorized to view this page.
 		</div>
 

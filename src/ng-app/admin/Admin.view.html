@@ -3,7 +3,7 @@
 
 		<h1 class="content-heading">Admin</h1>
 
-		<div ng-if="admin.user && (admin.user.uid === admin.data.master)">
+		<div ng-if="admin.showAdmin">
 
 			<ul class="nav nav-tabs adminTabs">
 				<li ng-repeat="tab in admin.tabs" role="presentation" ng-class="{active: admin.currentTab === tab.query}">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div ng-if="admin.user && admin.data && (admin.user.uid !== admin.data.master)" class="alert alert-danger">
+		<div ng-if="admin.showAdmin === false" class="alert alert-danger">
 			<i class="fa fa-warning"></i> You are not authorized to view this page.
 		</div>
 
