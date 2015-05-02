@@ -33,14 +33,11 @@
 			/**
 			 * RSVPs have been fetched successfully
 			 *
-			 * @param data {object} returned from promise
 			 * @private
 			 */
-			function _rsvpsLoadedSuccess(data) {
-				var _rsvps = data;
-
-				for (var i = 0; i < _rsvps.length; i++) {
-					var thisRsvp = _rsvps[i];
+			function _rsvpsLoadedSuccess() {
+				for (var i = 0; i < rsvps.length; i++) {
+					var thisRsvp = rsvps[i];
 
 					if (thisRsvp.eventId === _eventId && thisRsvp.userId === event.user.uid) {
 						event.rsvpObj = thisRsvp;

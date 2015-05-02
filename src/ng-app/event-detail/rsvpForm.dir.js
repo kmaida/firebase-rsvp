@@ -16,26 +16,38 @@
 			var rf = this;
 
 			// check if form is create or edit (does the model already exist or not)
-			var _isCreate = !!rf.formModelId === false,
-				_isEdit = !!rf.formModelId === true;
+			var _isCreate = !!rf.formModelId === false;
+			var _isEdit = !!rf.formModelId === true;
 
-			var rsvps = Fire.rsvps();
+			// get RSVPs
+			var rsvps;
 
 			rf.numberRegex = /^([1-9]|10)$/;
 
+			/**
+			 * Get the RSVP that should be edited
+			 *
+			 * @private
+			 */
+			function _getEditRsvp() {
+				rsvps = Fire.rsvps();
+
+				rsvps.$loaded(function () {
+					rf.formModel = rsvps.$getRecord(rf.formModelId);
+				});
+			}
+
 			if (_isCreate) {
+				rsvps = Fire.rsvps();
+
 				rf.formModel = {
 					userId: rf.userId,
 					eventName: rf.event.title,
 					eventId: rf.event.$id,
 					name: rf.userName
 				};
-			}
-
-			if (_isEdit) {
-				rsvps.$loaded(function () {
-					rf.formModel = rsvps.$getRecord(rf.formModelId);
-				});
+			} else if (_isEdit) {
+				_getEditRsvp();
 			}
 
 			/**
@@ -96,6 +108,8 @@
 					rf.showModal = false;
 				}, 1000);
 			}
+
+			$rootScope.$on('rsvpSubmitted', _getEditRsvp);
 
 			/**
 			 * Function for RSVP API call error
