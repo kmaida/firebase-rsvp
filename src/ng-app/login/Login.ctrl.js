@@ -5,20 +5,20 @@
 		.module('myApp')
 		.controller('LoginCtrl', LoginCtrl);
 
-	LoginCtrl.$inject = ['Fire', 'OAUTH', '$rootScope', '$location', 'localData'];
+	LoginCtrl.$inject = ['Fire', '$scope', 'OAUTH', '$rootScope', '$location', 'localData', 'MQ', 'mediaCheck'];
 
-	function LoginCtrl(Fire, OAUTH, $rootScope, $location, localData) {
+	function LoginCtrl(Fire, $scope, OAUTH, $rootScope, $location, localData, MQ, mediaCheck) {
 		// controllerAs ViewModel
 		var login = this;
 
 		// Firebase authentication
 		var _auth = Fire.auth();
 
-		var _loggedIn = Fire.ref.getAuth();
-
-		if (_loggedIn) {
-			$location.path('/');
-		}
+		_auth.$onAuth(function(authData) {
+			if (authData) {
+				$location.path('/');
+			}
+		});
 
 		function _localDataSuccess(data) {
 			login.localData = data;
@@ -53,13 +53,45 @@
 				}
 			}
 
-			_auth.$authWithOAuthPopup(provider)
-				.then(_authSuccess)
-				.catch(function(response) {
-					console.log(response.data);
-					login.loggingIn = 'error';
-					login.loginMsg = ''
-				});
+			/**
+			 * Failed to authenticate
+			 *
+			 * @param error
+			 * @private
+			 */
+			function _authError(error) {
+				console.log(error.data);
+				login.loggingIn = 'error';
+				login.loginMsg = ''
+			}
+
+			/**
+			 * Use popup to log in (large viewport)
+			 *
+			 * @private
+			 */
+			function _authWithPopup() {
+				_auth.$authWithOAuthPopup(provider)
+					.then(_authSuccess)
+					.catch(_authError);
+			}
+
+			/**
+			 * Use redirect to log in (small viewport)
+			 *
+			 * @private
+			 */
+			function _authWithRedirect() {
+				_auth.$authWithOAuthRedirect(provider, _authError);
+			}
+
+			// initialize mediaCheck
+			mediaCheck.init({
+				scope: $scope,
+				mq: MQ.SMALL,
+				enter: _authWithRedirect,
+				exit: _authWithPopup
+			});
 		};
 	}
 })();
