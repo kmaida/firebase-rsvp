@@ -150,10 +150,27 @@
 				ef.formModel.startDate = _formatDate(ef.formModel.startDate);
 				ef.formModel.endDate = _formatDate(ef.formModel.endDate);
 
+				/**
+				 * Update RSVPs attached to this event
+				 *
+				 * @private
+				 */
+				function _updateRsvps() {
+					angular.forEach(rsvps, function(rsvp) {
+						if (rsvp.eventId === ef.formModel.$id && rsvp.eventName !== ef.formModel.title) {
+							rsvp.eventName = ef.formModel.title;
+							rsvps.$save(rsvp);
+						}
+					});
+				}
+
 				if (_isCreate) {
 					events.$add(ef.formModel).then(_eventSuccess, _eventError);
 
 				} else if (_isEdit) {
+					var rsvps = Fire.rsvps();
+
+					rsvps.$loaded().then(_updateRsvps);
 					events.$save(ef.formModel).then(_eventSuccess, _eventError);
 				}
 			};
