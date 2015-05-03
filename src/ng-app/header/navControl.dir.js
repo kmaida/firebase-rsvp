@@ -66,7 +66,7 @@
 					};
 				});
 
-				$scope.$on('$locationChangeSuccess', _closeNav);
+				$scope.$on('$locationChangeStart', _closeNav);
 			}
 
 			/**
