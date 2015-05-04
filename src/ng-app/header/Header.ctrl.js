@@ -40,6 +40,8 @@
 
 			if (!authData) {
 				$location.path('/login');
+				$location.hash(null);
+				$location.search('view', null);
 			}
 		}
 
