@@ -20,6 +20,8 @@
 					$rootScope.$evalAsync(function() {
 						// send user to login
 						$location.path('/login');
+						$location.hash(null);
+						$location.search('view', null);
 					});
 				}
 
