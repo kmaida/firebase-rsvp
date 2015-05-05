@@ -14,10 +14,6 @@
 		// Firebase authentication
 		var _auth = Fire.auth();
 
-		// if trying to access /login while already logged in
-
-
-
 		/**
 		 * Local data successfully retrieved
 		 *
