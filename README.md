@@ -11,7 +11,7 @@ Firebase RSVP single-page application
 * jQuery
 * Gulp
 
-## Use
+## Installation and Use
 
 ### Prerequisites
 
@@ -20,7 +20,17 @@ Firebase RSVP single-page application
 * Gulp
 * Firebase
 
+## To Do
+
+[ ] README
+ - [ ] Document setup and initial build of project
+ - [ ] Document `FIREBASE.constant.js`
+ - [ ] Document Firebase setup
+   - [ ] Security Rules
+   - [ ] Oauth setup
+[ ] Release - v0.2.2
+
 ## Changelog
 
-* **v.0.2.1** - 5/02/15: Device tested and device-related bugs resolved
-* **v.0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend
+* **v0.2.1** - 5/02/15: Device tested and most device-related bugs resolved
+* **v0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend
