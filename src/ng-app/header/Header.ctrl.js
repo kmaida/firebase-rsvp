@@ -5,9 +5,9 @@
 		.module('myApp')
 		.controller('HeaderCtrl', headerCtrl);
 
-	headerCtrl.$inject = ['$location', 'localData', 'Fire', '$rootScope'];
+	headerCtrl.$inject = ['$location', 'localData', 'Fire', '$window', '$cookies'];
 
-	function headerCtrl($location, localData, Fire, $rootScope) {
+	function headerCtrl($location, localData, Fire, $window, $cookies) {
 		// controllerAs ViewModel
 		var header = this;
 
@@ -30,6 +30,8 @@
 		header.data = Fire.data();
 		header.user = Fire.ref.getAuth();
 
+		var _redirectOauth = null;
+
 		/**
 		 * Success function from authenticating
 		 *
@@ -38,10 +40,27 @@
 		function _onAuthCb(authData) {
 			header.user = authData;
 
-			if (!authData) {
+			if (!authData && $window.location.href.indexOf('/login#') > -1) {
+				_redirectOauth = true;
+			}
+
+			if (authData && _redirectOauth) {
+				if ($cookies.authPath) {
+					$location.path($cookies.authPath);
+					$cookies.authPath = undefined;
+				} else {
+					$location.path('/');
+				}
+
+				_redirectOauth = false;
+			}
+
+			if (!authData && header.clickedLogout) {
 				$location.path('/login');
 				$location.hash(null);
 				$location.search('view', null);
+
+				header.clickedLogout = undefined;
 			}
 		}
 
@@ -52,6 +71,7 @@
 		 * Log the user out of whatever authentication they've signed in with
 		 */
 		header.logout = function() {
+			header.clickedLogout = true;
 			_auth.$unauth();
 		};
 
