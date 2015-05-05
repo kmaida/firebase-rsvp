@@ -14,12 +14,9 @@
 		// Firebase authentication
 		var _auth = Fire.auth();
 
-		// in case authRun() fails to redirect earlier
-		_auth.$onAuth(function(authData) {
-			if (authData) {
-				//$location.path('/');
-			}
-		});
+		// if trying to access /login while already logged in
+
+
 
 		/**
 		 * Local data successfully retrieved

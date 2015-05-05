@@ -11,17 +11,17 @@
 		$rootScope.$on('$routeChangeStart', function(event, next, current) {
 			var _isAuthenticated = !!Fire.ref.getAuth();
 
-			if (next && next.$$route && current && current.$$route) {
+			if (next && next.$$route) {
 
-				console.log(current.$$route.originalPath, next.$$route.originalPath, $cookies.authPath, _isAuthenticated);
+				console.log('next route:', next.$$route.originalPath, 'is next route secure:', !!next.$$route.secure, 'authenticated:', _isAuthenticated);
 
 				// if not authenticated, redirect to login page
 				// if possible, after login, redirect to intended route (large mq)
-				if (current.$$route.secure && next.$$route.secure && !_isAuthenticated) {
+				if (next.$$route.secure && !_isAuthenticated) {
 
-					console.log('save auth path:', current.$$route.originalPath);
+					console.log('save auth path:', next.$$route.originalPath);
 
-					$cookies.authPath = current.$$route.originalPath;
+					$cookies.authPath = next.$$route.originalPath;
 
 					$rootScope.$evalAsync(function() {
 						// send user to login
@@ -32,11 +32,16 @@
 				}
 
 				// if attempting to access /login route and already logged in, redirect to homepage
-				// redirection to authPath only happens correctly with Google (not possible in some other Oauth services)
-				if (current.$$route.originalPath === '/login' && _isAuthenticated) {
+				if (next.$$route.originalPath === '/login' && _isAuthenticated) {
+					$rootScope.$evalAsync(function() {
+						$location.path('/');
+					});
+				}
 
-					console.log('load auth path', $cookies.authPath);
-
+				// if redirecting from Oauth, check to see if an intended route was saved
+				// if intended secure route, login and then redirect
+				// if no intended route, go to homepage
+				if (current && current.$$route && current.$$route.originalPath === '/login' && _isAuthenticated) {
 					$rootScope.$evalAsync(function() {
 						if ($cookies.authPath) {
 							$location.path($cookies.authPath);
@@ -44,6 +49,12 @@
 							$location.path('/');
 						}
 					});
+				}
+
+				// logged in and going to and from a secure route: clear cookie
+				// TODO: test this
+				if (next && next.$$route && next.$$route.secure && current && current.$$route && current.$$route.secure && _isAuthenticated) {
+					$cookies.authPath = undefined;
 				}
 			}
 
