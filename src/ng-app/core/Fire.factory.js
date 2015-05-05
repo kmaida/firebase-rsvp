@@ -5,11 +5,11 @@
 		.module('myApp')
 		.factory('Fire', Fire);
 
-	Fire.$inject = ['$firebaseAuth', '$firebaseObject', '$firebaseArray'];
+	Fire.$inject = ['FIREBASE', '$firebaseAuth', '$firebaseObject', '$firebaseArray'];
 
-	function Fire($firebaseAuth, $firebaseObject, $firebaseArray) {
+	function Fire(FIREBASE, $firebaseAuth, $firebaseObject, $firebaseArray) {
 
-		var uri = 'https://intense-heat-5822.firebaseio.com/';
+		var uri = FIREBASE.URI;
 		var ref = new Firebase(uri);
 
 		/**

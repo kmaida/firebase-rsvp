@@ -11,6 +11,15 @@ Firebase RSVP single-page application
 * jQuery
 * Gulp
 
+## Use
+
+### Prerequisites
+
+* Node
+* NPM
+* Gulp
+* Firebase
+
 ## Changelog
 
 * **v.0.2.1** - 5/02/15: Device tested and device-related bugs resolved

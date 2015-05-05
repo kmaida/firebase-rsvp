@@ -28,8 +28,8 @@ var path = {
 		dest: basePath.dest + 'assets/css/'
 	},
 	js: {
-		src: basePath.src + 'assets/js/',
-		dest: basePath.dest + 'assets/js/'
+		src: basePath.src + 'assets/js/rsvp/',
+		dest: basePath.dest + 'assets/js/rsvp/'
 	},
 	jsVendor: {
 		src: basePath.src + 'assets/js/vendor/',

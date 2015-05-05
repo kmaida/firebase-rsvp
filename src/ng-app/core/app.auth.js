@@ -13,14 +13,9 @@
 
 			if (next && next.$$route) {
 
-				console.log('next route:', next.$$route.originalPath, 'is next route secure:', !!next.$$route.secure, 'authenticated:', _isAuthenticated);
-
 				// if not authenticated, redirect to login page
 				// if possible, after login, redirect to intended route (large mq)
 				if (next.$$route.secure && !_isAuthenticated) {
-
-					console.log('save auth path:', next.$$route.originalPath);
-
 					$cookies.authPath = next.$$route.originalPath;
 
 					$rootScope.$evalAsync(function() {
