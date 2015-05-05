@@ -7,7 +7,7 @@
 		View all events and access detail links, update, or delete.
 	</p>
 
-	<table ng-if="aEvt.events" class="eventTable table table-responsive table-condensed">
+	<table ng-if="aEvt.events.length" class="eventTable table table-responsive table-condensed">
 		<thead>
 			<tr>
 				<th>Event</th>
@@ -36,6 +36,11 @@
 			<td><a ng-click="admin.showGuests(evt.$id, evt.title)">View</a></td>
 		</tr>
 	</table>
+
+	<div class="alert alert-warning">
+		<i class="fa fa-warning"></i> There are no events to administer. <a ng-href="/admin?view=add-event">Add an
+		event</a>
+	</div>
 
 	<view-event-guests event-id="admin.showGuestsEventId"
 					   event-name="admin.showGuestsEventName"

@@ -11,7 +11,9 @@
 				</li>
 			</ul>
 
-			<div ng-if="admin.currentTab === 'events'" class="content-section" ng-include="'/ng-app/admin/eventList.tpl.html'"></div>
+			<div ng-if="admin.currentTab === 'events'"
+				 class="content-section"
+				 ng-include="'/ng-app/admin/eventList.tpl.html'"></div>
 
 			<div ng-if="admin.currentTab === 'add-event'" class="content-section">
 				<section class="eventForm">
