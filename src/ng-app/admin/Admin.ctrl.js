@@ -22,7 +22,7 @@
 		 * @private
 		 */
 		function _showAdmin() {
-			admin.showAdmin = admin.user.uid === admin.data.master;
+			admin.showAdmin = admin.user && (admin.user.uid === admin.data.master);
 		}
 		admin.data.$loaded().then(_showAdmin);
 

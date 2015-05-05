@@ -17,7 +17,7 @@
 		// in case authRun() fails to redirect earlier
 		_auth.$onAuth(function(authData) {
 			if (authData) {
-				$location.path('/');
+				//$location.path('/');
 			}
 		});
 

@@ -8,7 +8,7 @@
 				<h5><i class="fa fa-calendar"></i> {{::rf.event.prettyDate}}</h5>
 			</div>
 
-			<form method="post" ng-submit="rf.submitRsvp()" name="rsvpForm">
+			<form method="post" ng-submit="rf.submitRsvp()" name="rsvpForm" novalidate>
 				<div class="modal-body">
 					<div ng-if="rf.event.rsvpInstructions"
 						 class="rsvpInstructions" ng-bind-html="rf.event.rsvpInstructions"></div>
