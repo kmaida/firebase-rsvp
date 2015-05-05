@@ -11,24 +11,33 @@ Firebase RSVP single-page application
 * jQuery
 * Gulp
 
-## Installation and Use
+## Setup
 
 ### Prerequisites
 
-* Node
+Make sure you have the following dependencies:
+
+* Node (>= v.0.10)
 * NPM
 * Gulp
-* Firebase
+* Firebase account
+* Social media accounts and developer apps for all or any of the following:
+ * Twitter app
+ * Google app
+ * Facebook app
+ * GitHub app
+
+### 
 
 ## To Do
 
-[ ] README
- - [ ] Document setup and initial build of project
- - [ ] Document `FIREBASE.constant.js`
- - [ ] Document Firebase setup
-   - [ ] Security Rules
-   - [ ] Oauth setup
-[ ] Release - v0.2.2
+- [ ] Document setup and initial build of project
+- [ ] Document `FIREBASE.constant.js`
+- [ ] Document Firebase setup
+- [ ] Security Rules
+- [ ] Oauth setup
+- [ ] Creating the admin account
+- [ ] Release - v0.2.2
 
 ## Changelog
 
