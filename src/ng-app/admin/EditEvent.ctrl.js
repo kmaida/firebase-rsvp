@@ -81,8 +81,10 @@
 		 *
 		 * @private
 		 */
-		function _deleteError() {
+		function _deleteError(error) {
 			edit.btnDeleteText = 'Error deleting!';
+
+			console.log('Error deleting event:', error);
 
 			$timeout(_btnDeleteReset, 3000);
 		}
@@ -107,10 +109,12 @@
 					}
 				});
 			}
-			rsvps.$loaded().then(_deleteRsvps);
+			rsvps.$loaded().then(function() {
+				_deleteRsvps();
 
-			// delete the event
-			events.$remove(edit.editEvent).then(_deleteSuccess, _deleteError);
+				// delete the event
+				events.$remove(edit.editEvent).then(_deleteSuccess, _deleteError);
+			});
 		};
 	}
 })();
