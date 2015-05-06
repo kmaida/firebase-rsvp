@@ -37,7 +37,7 @@
 		</tr>
 	</table>
 
-	<div class="alert alert-warning">
+	<div ng-if="aEvt.events && !aEvt.events.length" class="alert alert-warning">
 		<i class="fa fa-warning"></i> There are no events to administer. <a ng-href="/admin?view=add-event">Add an
 		event</a>
 	</div>

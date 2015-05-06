@@ -17,3 +17,10 @@
 		}
 	}
 }
+.btn-eventDownload {
+	display: none;
+
+	@include mq($mq-large) {
+		display: inline-block;
+	}
+}

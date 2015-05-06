@@ -18,6 +18,9 @@
 
 		event.showModal = false;
 
+		/**
+		 * Click function to open the RSVP modal
+		 */
 		event.openRsvpModal = function() {
 			event.showModal = true;
 		};
@@ -112,9 +115,17 @@
 
 		events.$loaded(_eventSuccess);
 
+		/**
+		 * $watch rsvpReady and generate .ics file
+		 *
+		 * @type {function()|*}
+		 * @private
+		 */
 		var _watchRsvpReady = $scope.$watch('event.rsvpReady', function(newVal, oldVal) {
 			if (newVal && event.detail && event.detail.rsvp) {
 				_generateIcal();
+
+				// deregister watch
 				_watchRsvpReady();
 			}
 		});
