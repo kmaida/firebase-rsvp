@@ -78,26 +78,24 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
 ```
 {
   "rules": {
-    "data": {
-      ".read": true
-    },
+    ".read": true,
     "events": {
-      ".read": "auth != null",
-      ".write": "auth != null && root.child('data').child('master').val() === auth.uid"
+      ".write": "auth != null && root.child('data').child('master').val() === auth.uid",
+      "$event": {
+        ".validate": "newData.hasChildren(['title', 'startDate', 'startTime', 'endDate', 'endTime', 'location', 'viewPublic', 'rsvp'])"
+      }
     },
     "rsvps": {
-      ".read": "auth != null",
       "$rsvp": {
-        ".write": "auth != null && (data.child('userId').val() === auth.uid || root.child('data').child('master').val() === auth.uid)"
+        ".write": "auth != null && (newData.child('userId').val() === auth.uid || root.child('data').child('master').val() === auth.uid)",
+        ".validate": "newData.hasChildren(['name', 'userId', 'attending', 'eventId', 'eventName'])"
       }
     }
   }
 }
 ```
 
-The above rules specify that `data` can be read by all, `events` can be read by authenticated users and written by the `admin` user only, and `rsvp`s can be read by authenticated users and written by `admin` or the user who created the RSVP (the `admin` needs write privileges to the RSVPs in order to delete them if an event is deleted).
-
-**Important:** These are very basic rules and can/should be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing database rules and validation!
+**Important:** These are very basic rules and can/*should* be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing your own database rules and validation.
 
 ## To Do
 
