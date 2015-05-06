@@ -1,17 +1,17 @@
 # firebase-rsvp
 
-Firebase RSVP single-page application
+An AngularJS / Firebase / AngularFire single-page application for managing events and RSVPs.
 
-* AngularJS (with [reStart-angular](https://github.com/kmaida/reStart-angular))
+* AngularJS (built with [reStart-angular](https://github.com/kmaida/reStart-angular))
 * Firebase ([Firebase](http://www.firebase.com))
 * AngularFire ([AngularFire v1.0.0](https://www.firebase.com/docs/web/libraries/angular/))
-* Event iCal download (with [ics.js](https://github.com/nwcell/ics.js))
+* Event iCal (with [ics.js](https://github.com/nwcell/ics.js))
 * FontAwesome (CDN)
 * Bootstrap 3
 * jQuery
 * Gulp
 
-## Setup
+## How to Use
 
 ### Dependencies
 
@@ -39,7 +39,7 @@ Firebase RSVP single-page application
      * Click the checkbox to enable
      * Enter your apps' `ID`s and `secret`s
  
-### Installation and initial build
+### Installation and Initial Build
 
 **firebase-rsvp** needs a server in order to properly serve AngularJS routes. You may use a tool like MAMP or WAMP (an `.htaccess` file is provided in the repo for Apache servers), spin up a local Python or Node server, or use a development environment on a live web server.
  
@@ -50,7 +50,7 @@ Firebase RSVP single-page application
 5. Rename the file to `FIREBASE.constant.js` and Save
 6. Run `gulp` from the terminal / command line to build the project files
 
-### Firebase configuration
+### Firebase Configuration
 
 You should already have set up your OAuth accounts (documented in the **Setting up dependencies** section above).
 
@@ -86,8 +86,8 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
       ".write": "auth != null && root.child('data').child('master').val() === auth.uid"
     },
     "rsvps": {
+      ".read": "auth != null",
       "$rsvp": {
-        ".read": "auth != null && (data.child('userId').val() === auth.uid || root.child('data').child('master').val() === auth.uid)",
         ".write": "auth != null && (data.child('userId').val() === auth.uid || root.child('data').child('master').val() === auth.uid)"
       }
     }
@@ -95,9 +95,9 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
 }
 ```
 
-The above rules specify that `data` can be read by all, `events` can be read by authenticated users and written by the `admin` user only, and `rsvp`s can be read/written by `admin` or the user who created the RSVP (the `admin` needs write privileges to the RSVPs in order to delete them if an event is deleted).
+The above rules specify that `data` can be read by all, `events` can be read by authenticated users and written by the `admin` user only, and `rsvp`s can be read by authenticated users and written by `admin` or the user who created the RSVP (the `admin` needs write privileges to the RSVPs in order to delete them if an event is deleted).
 
-**Important:** These are very basic rules and can/should be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing rules and validation.
+**Important:** These are very basic rules and can/should be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing database rules and validation!
 
 ## To Do
 
