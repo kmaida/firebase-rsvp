@@ -27,8 +27,6 @@ Make sure you have the following dependencies:
  * Facebook app
  * GitHub app
 
-### 
-
 ## To Do
 
 - [ ] Document setup and initial build of project
