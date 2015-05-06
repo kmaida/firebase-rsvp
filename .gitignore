@@ -1,0 +1,7 @@
+node_modules
+.idea
+src/ng-app/core/FIREBASE.constant.js
+src/ng-app/ng-app.js
+src/assets/js/vendor/vendor.js
+src/assets/js/rsvp/scripts.js
+src/assets/css/styles.css

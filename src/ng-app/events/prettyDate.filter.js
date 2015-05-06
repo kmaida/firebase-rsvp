@@ -5,21 +5,18 @@
 		.module('myApp')
 		.filter('prettyDate', prettyDate);
 
-	function prettyDate() {
+	prettyDate.$inject = ['dateFilter'];
+
+	function prettyDate(dateFilter) {
 		/**
 		 * Takes a date string and converts it to a pretty date
 		 *
 		 * @param dateStr {string}
 		 */
 		return function (dateStr) {
-			var d = new Date(dateStr),
-				monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-				month = monthsArr[d.getMonth()],
-				day = d.getDate(),
-				year = d.getFullYear(),
-				prettyDate;
+			var d = new Date(dateStr);
 
-			prettyDate = month + ' ' + day + ', ' + year;
+			prettyDate = dateFilter(d, 'MMM d, y');
 
 			return prettyDate;
 		};
