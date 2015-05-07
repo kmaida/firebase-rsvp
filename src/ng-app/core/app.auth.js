@@ -48,7 +48,7 @@
 
 				// logged in and going to and from a secure route: clear cookie
 				if (next && next.$$route && next.$$route.secure && current && current.$$route && current.$$route.secure && _isAuthenticated) {
-					$cookies.authPath = undefined;
+					delete $cookies.authPath;
 				}
 			}
 
