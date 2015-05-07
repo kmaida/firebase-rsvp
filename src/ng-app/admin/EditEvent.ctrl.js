@@ -46,7 +46,6 @@
 			edit.editEvent = events.$getRecord(_eventId);
 			edit.showEditForm = true;
 		}
-
 		events.$loaded(_eventSuccess);
 
 		/**
@@ -99,22 +98,20 @@
 
 			/**
 			 * Delete all RSVPs associated with the deleted event
+			 * Delete the event
 			 *
 			 * @private
 			 */
-			function _deleteRsvps() {
+			function _deleteRsvpsAndEvent() {
 				angular.forEach(rsvps, function(rsvp) {
 					if (rsvp.eventId === edit.editEvent.$id) {
 						rsvps.$remove(rsvp);
 					}
 				});
-			}
-			rsvps.$loaded().then(function() {
-				_deleteRsvps();
 
-				// delete the event
 				events.$remove(edit.editEvent).then(_deleteSuccess, _deleteError);
-			});
+			}
+			rsvps.$loaded().then(_deleteRsvpsAndEvent);
 		};
 	}
 })();
