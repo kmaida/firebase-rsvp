@@ -23,7 +23,6 @@
 		function _localDataSuccess(data) {
 			header.localData = data;
 		}
-
 		localData.getJSON().then(_localDataSuccess);
 
 		// get data from the database
@@ -47,7 +46,6 @@
 			if (authData && _redirectOauth) {
 				if ($cookies.authPath) {
 					$location.path($cookies.authPath);
-					$cookies.authPath = undefined;
 				} else {
 					$location.path('/');
 				}
@@ -72,6 +70,7 @@
 		 */
 		header.logout = function() {
 			header.clickedLogout = true;
+			delete $cookies.authPath;
 			_auth.$unauth();
 		};
 
