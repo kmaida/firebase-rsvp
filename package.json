@@ -1,6 +1,6 @@
 {
   "name": "RSVP",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Kim Maida",
   "description": "RSVP Angular / AngularFire / Firebase application",
   "main": "src/index.html",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/kmaida/firebase-rsvp/issues"
   },
-  "homepage": "http://rsvp.kmaida.io",
+  "homepage": "https://github.com/kmaida/firebase-rsvp",
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",

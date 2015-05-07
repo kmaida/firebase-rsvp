@@ -97,16 +97,13 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
 
 **Important:** These are very basic rules and can/*should* be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing your own database rules and validation.
 
-## To Do
+## Future Enhancements
 
-- [x] Document setup and initial build of project
-- [x] Document Firebase setup
-  - [x] OAuth setup
-  - [x] Creating the admin account
-  - [x] Security Rules
-- [ ] Release - v0.2.2
+- [ ] Allow realtime commenting on events
+- [ ] Allow users to subscribe to updates for events
 
 ## Changelog
 
+* **v0.2.2** - 5/07/15: Bugs resolved, feature-complete for first release
 * **v0.2.1** - 5/02/15: Device tested and most device-related bugs resolved
 * **v0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend
