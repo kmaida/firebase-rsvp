@@ -95,7 +95,7 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
 }
 ```
 
-**Important:** These are very basic rules and can/*should* be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) to learn more about writing your own database rules and validation.
+**Important:** These are very basic rules and can/*should* be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) and [Security API](https://www.firebase.com/docs/security/api/) to learn more about writing your own database rules and validation.
 
 ## Future Enhancements
 
