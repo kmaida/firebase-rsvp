@@ -6,9 +6,9 @@
 
 			<section class="events-upcoming" ng-if="events.eventsReady">
 				<h3><i class="fa fa-calendar"></i> Upcoming Events</h3>
-				<p class="lead">View / RSVP for upcoming events.</p>
+				<p class="lead">View / RSVP for upcoming events. Click on an event to view details.</p>
 
-				<table class="table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
+				<table class="events-table table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
 					<thead>
 						<tr>
 							<th>Event</th>
@@ -17,8 +17,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="evt in events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate">
-							<td><a ng-href="/event/{{::evt.$id}}">{{::evt.title}}</a></td>
+						<tr ng-repeat="evt in events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
+							<td>{{::evt.title}}</td>
 							<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
 								(evt.endDate | prettyDate) :
 								''}}</td>
@@ -34,9 +34,9 @@
 
 			<section class="events-past" ng-if="events.eventsReady && (events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query).length">
 				<h3><i class="fa fa-book"></i> Past Events</h3>
-				<p class="lead">These events have come and gone, but their details are still available to view.</p>
+				<p class="lead">These events have come and gone, but details are still available to view.</p>
 
-				<table class="table table-responsive text-muted">
+				<table class="events-table table table-responsive text-muted">
 					<thead>
 					<tr>
 						<th>Event</th>
@@ -45,8 +45,8 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="evt in events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate">
-						<td><a ng-href="/event/{{::evt.$id}}">{{::evt.title}}</a></td>
+					<tr ng-repeat="evt in events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
+						<td>{{::evt.title}}</td>
 						<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
 							(evt.endDate | prettyDate) :
 							''}}</td>

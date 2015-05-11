@@ -5,15 +5,24 @@
 		.module('myApp')
 		.controller('EventsCtrl', EventsCtrl);
 
-	EventsCtrl.$inject = ['Fire', 'Event'];
+	EventsCtrl.$inject = ['Fire', 'Event', '$location'];
 
-	function EventsCtrl(Fire, Event) {
+	function EventsCtrl(Fire, Event, $location) {
 		var events = this;
 
 		events.allEvents = Fire.events();
 
 		// synchronously retrieve user data
 		events.user = Fire.ref.getAuth();
+
+		/**
+		 * Link to an event detail page
+		 *
+		 * @param evtId {string} event ID
+		 */
+		events.linkToEvent = function(evtId) {
+			$location.path('/event/' + evtId);
+		};
 
 		/**
 		 * Function for successful API call getting events list

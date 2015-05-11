@@ -11,3 +11,9 @@
 		text-decoration: none;
 	}
 }
+.events-table-row {
+	&:hover {
+		background: $table-bg-active;
+		cursor: pointer;
+	}
+}
