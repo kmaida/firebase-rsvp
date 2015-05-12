@@ -62,21 +62,22 @@
 				}
 			}
 
-			fulldate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hours, minutes);
+			fulldate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hours, minutes, 0, 0);
 
 			return fulldate;
 		}
 
 		/**
 		 * Determine if event is expired
-		 * (end date/time has passed current date/time)
+		 * (end date has passed current date)
+		 * Times are ignored because of false positives
 		 *
 		 * @param evt {object} event object
 		 * @returns {boolean}
 		 */
 		function expired(evt) {
-			var jsStartDate = getJSDatetime(evt.startDate, evt.startTime),
-				now = new Date();
+			var jsStartDate = getJSDatetime(evt.endDate, evt.endTime).setHours(0,0,0,0),
+				now = new Date().setHours(0,0,0,0);
 
 			return jsStartDate < now;
 		}

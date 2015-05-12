@@ -51,8 +51,8 @@
 					<i class="fa fa-warning"></i> RSVP is closed for this event.
 				</div>
 
-				<div ng-if="event.detail.expired" class="alert alert-danger">
-					<i class="fa fa-ban"></i> This event has ended.
+				<div ng-if="event.detail.expired && event.detail.rsvp" class="alert alert-danger">
+					<i class="fa fa-ban"></i> It is too late to RSVP for this event.
 				</div>
 
 				<rsvp-form ng-if="!event.detail.expired && event.detail.rsvp"

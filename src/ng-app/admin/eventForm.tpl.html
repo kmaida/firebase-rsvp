@@ -57,7 +57,6 @@
 						   class="form-control"
 						   placeholder="h:mm AM/PM"
 						   ng-pattern="ef.timeRegex"
-						   ng-blur="ef.validateDaterange()"
 						   required>
 				</div>
 			</div>
@@ -91,7 +90,7 @@
 						   placeholder="mm/dd/yyyy"
 						   ng-model="ef.formModel.endDate"
 						   is-open="ef.endDateOpen"
-						   min-date="ef.minDate"
+						   min-date="ef.formModel.startDate || ef.minDate"
 						   datepicker-options="ef.dateOptions"
 						   close-text="Close"
 						   ng-blur="ef.validateDaterange()"
@@ -112,7 +111,6 @@
 						   class="form-control"
 						   placeholder="h:mm AM/PM"
 						   ng-pattern="ef.timeRegex"
-						   ng-blur="ef.validateDaterange()"
 						   required>
 				</div>
 			</div>
@@ -129,8 +127,8 @@
 			<span ng-message="required">End time is <strong>required</strong></span>
 		</div>
 
-		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && eventForm.endDate.$valid && eventForm.endTime.$valid && ef.validDaterange === false" class="message-invalid text-danger">
-			<strong>Event date/time range is invalid</strong>: event ends before it begins
+		<div ng-if="eventForm.startDate.$valid && eventForm.endDate.$valid && ef.validDaterange === false" class="message-invalid text-danger">
+			<strong>Event date range is invalid</strong>: event ends before it begins
 		</div>
 
 	</div>
