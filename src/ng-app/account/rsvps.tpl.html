@@ -3,7 +3,7 @@
 </h2>
 
 <p class="lead">
-	View your RSVPs. Click on an event to view the event details or to update your RSVP.
+	View your RSVPs. Click on an RSVP to view the event details or to update your RSVP.
 </p>
 
 <div class="rsvps" ng-if="account.rsvps.length">
@@ -17,8 +17,8 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="rsvp in account.rsvps">
-			<td><a ng-href="/event/{{::rsvp.eventId}}">{{::rsvp.eventName}}</a></td>
+		<tr ng-repeat="rsvp in account.rsvps" ng-click="account.linkToEvent(rsvp.eventId)">
+			<td>{{::rsvp.eventName}}</td>
 			<td class="text-center">{{::rsvp.attending ? 'Yes' : 'No'}}</td>
 			<td class="text-center">{{::rsvp.attending ? rsvp.guests : ''}}</td>
 			<td ng-bind-html="rsvp.comments"></td>

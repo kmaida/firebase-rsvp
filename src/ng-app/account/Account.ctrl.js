@@ -11,10 +11,6 @@
 		// controllerAs ViewModel
 		var account = this;
 
-		// TODO: show user's general information
-		// TODO: show user's RSVPs
-		// TODO: remove tabs (not necessary)
-
 		account.data = Fire.data();
 
 		// get user synchronously and grab necessary data to display
@@ -102,5 +98,8 @@
 			userData.getUser().then(_getUserSuccess, _getUserError);
 		};
 
+		account.linkToEvent = function(eventId) {
+			$location.path('/event/' + eventId);
+		}
 	}
 })();

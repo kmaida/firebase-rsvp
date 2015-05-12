@@ -13,6 +13,7 @@
 	display: none !important;
 }
 
+/*-- ng-click: show cursor / table row highlighting --*/
 a,
 [ng-click],
 [ng\:click],
@@ -22,6 +23,11 @@ a,
 
 	&:focus {
 		outline: 0 none;
+	}
+}
+tr[ng-click] {
+	&:hover {
+		background: $table-bg-active;
 	}
 }
 
