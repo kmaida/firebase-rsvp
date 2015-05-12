@@ -16,7 +16,7 @@
 				// if not authenticated, redirect to login page
 				// if possible, after login, redirect to intended route (large mq)
 				if (next.$$route.secure && !_isAuthenticated) {
-					$cookies.authPath = next.$$route.originalPath;
+					$cookies.authPath = $location.path();
 
 					$rootScope.$evalAsync(function() {
 						// send user to login
