@@ -17,20 +17,20 @@
 					</div>
 				</div>
 
-				<table class="events-table table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
+				<table class="eventsTable table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
 					<thead>
 						<tr>
-							<th>Event</th>
-							<th>Date(s)</th>
-							<th>RSVP</th>
+							<th class="eventsTable-th-date">Date(s)</th>
+							<th class="eventsTable-th-event">Event</th>
+							<th class="eventsTable-th-rsvp">RSVP</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="evt in events.allEvents | filter:events.query | filter:{expired: false} | filter:{viewPublic: true} | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
-							<td>{{::evt.title}}</td>
 							<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
 								(evt.endDate | prettyDate) :
 								''}}</td>
+							<td><strong>{{::evt.title}}</strong></td>
 							<td ng-class="{'text-danger': !evt.rsvp, 'text-success': evt.rsvp}">{{::evt.rsvp ? 'Open' : 'Closed'}}</td>
 						</tr>
 					</tbody>

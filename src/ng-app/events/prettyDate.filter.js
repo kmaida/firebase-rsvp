@@ -16,7 +16,7 @@
 		return function (dateStr) {
 			var d = new Date(dateStr);
 
-			prettyDate = dateFilter(d, 'MMM d, y');
+			prettyDate = dateFilter(d, 'shortDate');
 
 			return prettyDate;
 		};

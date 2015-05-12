@@ -2,12 +2,8 @@
      EVENTS PAGE
 --------------------*/
 
-.events-search-clearQuery {
-	color: $gray-light;
-	margin-left: -22px;
-
-	&:hover {
-		color: $color-black-light;
-		text-decoration: none;
+.eventsTable {
+	&-th-event {
+		width: 56%;
 	}
 }
