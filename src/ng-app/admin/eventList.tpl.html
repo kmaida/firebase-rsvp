@@ -16,7 +16,7 @@
 				<th>RSVPs</th>
 			</tr>
 		</thead>
-		<tr ng-repeat="evt in aEvt.events | orderBy:aEvt.sortStartDate" id="e{{$index}}">
+		<tr ng-repeat="evt in aEvt.events | orderBy:aEvt.sortStartDate" id="e{{$index}}" ng-class="{'danger expired': evt.expired}">
 			<td><a ng-href="/event/{{evt.$id}}">{{evt.title}}</a></td>
 
 			<td>

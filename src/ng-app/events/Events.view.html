@@ -31,30 +31,6 @@
 					<i class="fa fa-warning"></i> There are no upcoming events.
 				</div>
 			</section>
-
-			<section class="events-past" ng-if="events.eventsReady && (events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query).length">
-				<h3><i class="fa fa-book"></i> Past Events</h3>
-				<p class="lead">These events have come and gone, but details are still available to view.</p>
-
-				<table class="events-table table table-responsive text-muted">
-					<thead>
-					<tr>
-						<th>Event</th>
-						<th>Date(s)</th>
-						<th>RSVP</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="evt in events.allEvents | filter:{expired: true} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
-						<td>{{::evt.title}}</td>
-						<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
-							(evt.endDate | prettyDate) :
-							''}}</td>
-						<td class="text-danger">Closed</td>
-					</tr>
-					</tbody>
-				</table>
-			</section>
 		</div>
 
 	</section>

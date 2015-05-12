@@ -9,6 +9,9 @@
 	td {
 		vertical-align: middle !important;
 	}
+	tr.expired a {
+		color: $color-black-light;
+	}
 	&-link-copy {
 		border: 1px solid transparent;
 		cursor: copy;
@@ -18,6 +21,7 @@
 		overflow: hidden;
 		padding: 10px 0;
 		text-overflow: ellipsis;
+		white-space: nowrap;
 
 		@include mq($mq-large) {
 			max-width: 100%;

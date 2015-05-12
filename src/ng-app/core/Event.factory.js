@@ -75,16 +75,34 @@
 		 * @returns {boolean}
 		 */
 		function expired(evt) {
-			var jsStartDate = getJSDatetime(evt.endDate, evt.endTime),
+			var jsStartDate = getJSDatetime(evt.startDate, evt.startTime),
 				now = new Date();
 
 			return jsStartDate < now;
 		}
 
+		/**
+		 * Add expired key to all events in array
+		 *
+		 * @param allEvents {Array} events array
+		 * @returns {Array}
+		 */
+		function allEventsExpired(allEvents) {
+			for (var i = 0; i < allEvents.length; i++) {
+				var thisEvt = allEvents[i];
+
+				thisEvt.startDateJS = getJSDatetime(thisEvt.startDate, thisEvt.startTime);
+				thisEvt.expired = expired(thisEvt);
+			}
+
+			return allEvents;
+		}
+
 		return {
 			getPrettyDatetime: getPrettyDatetime,
 			getJSDatetime: getJSDatetime,
-			expired: expired
+			expired: expired,
+			allEventsExpired: allEventsExpired
 		};
 	}
 })();

@@ -37,6 +37,17 @@
 		aEvt.events = Fire.events();
 
 		/**
+		 * Function for successful API call getting events list
+		 *
+		 * @param data {Array} promise provided by $http success
+		 * @private
+		 */
+		function _eventsSuccess(data) {
+			Event.allEventsExpired(aEvt.events);
+		}
+		aEvt.events.$loaded().then(_eventsSuccess);
+
+		/**
 		 * Custom sort function
 		 * Get event start date and change to real date to sort by
 		 *

@@ -31,16 +31,9 @@
 		 * @private
 		 */
 		function _eventsSuccess(data) {
-			for (var i = 0; i < events.allEvents.length; i++) {
-				var thisEvt = events.allEvents[i];
-
-				thisEvt.startDateJS = Event.getJSDatetime(thisEvt.startDate, thisEvt.startTime);
-				thisEvt.expired = Event.expired(thisEvt);
-			}
-
+			Event.allEventsExpired(events.allEvents);
 			events.eventsReady = true;
 		}
-
 		events.allEvents.$loaded().then(_eventsSuccess);
 
 		/**

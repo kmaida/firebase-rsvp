@@ -13,7 +13,11 @@
 	display: none !important;
 }
 
-a {
+a,
+[ng-click],
+[ng\:click],
+[data-ng-click],
+.ng-click {
 	cursor: pointer;
 
 	&:focus {
