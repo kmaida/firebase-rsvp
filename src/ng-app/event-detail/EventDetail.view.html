@@ -9,12 +9,12 @@
 			</h1>
 
 			<p class="eventDetail-datetime">
-				<i class="fa fa-calendar"></i> <strong>Date / Time</strong><br>
+				<i class="fa fa-calendar fa-fw"></i> <strong>Date / Time</strong><br>
 				<span ng-class="{'text-danger': event.detail.expired}">{{::event.detail.prettyDate}}</span>
 			</p>
 
 			<div class="eventDetail-location">
-				<i class="fa fa-map-marker"></i> <strong>Location</strong><br>
+				<i class="fa fa-map-marker fa-fw"></i> <strong>Location</strong><br>
 				<address>{{::event.detail.location}} [<a
 						ng-href="http://maps.google.com/maps?saddr=&daddr={{::event.detail.location}}">get
 					directions</a>]</address>
@@ -24,7 +24,7 @@
 
 			<div class="eventDetail-rsvp">
 				<div ng-if="event.detail.rsvp && !event.detail.expired">
-					<i class="fa fa-paper-plane"></i> <strong>RSVP</strong>
+					<i class="fa fa-paper-plane fa-fw"></i> <strong>RSVP</strong>
 
 					<div ng-if="event.detail.rsvpInstructions"
 						 ng-bind-html="event.detail.rsvpInstructions"
@@ -48,11 +48,11 @@
 				</div>
 
 				<div ng-if="!event.detail.rsvp" class="alert alert-warning">
-					<i class="fa fa-warning"></i> RSVP is closed for this event.
+					<i class="fa fa-warning"></i> RSVP is not available for this event.
 				</div>
 
 				<div ng-if="event.detail.expired && event.detail.rsvp" class="alert alert-danger">
-					<i class="fa fa-ban"></i> It is too late to RSVP for this event.
+					<i class="fa fa-clock-o"></i> It is too late to RSVP for this event.
 				</div>
 
 				<rsvp-form ng-if="!event.detail.expired && event.detail.rsvp"

@@ -14,6 +14,7 @@
 }
 
 /*-- ng-click: show cursor / table row highlighting --*/
+
 a,
 [ng-click],
 [ng\:click],
@@ -40,6 +41,9 @@ tr[ng-click] {
 
 /*-- Forms --*/
 
+.input-group-btn .btn {
+	height: 34px;
+}
 input.ng-dirty.ng-invalid {
 	border-color: $color-invalid-rgba;
 	box-shadow: 0 0 6px $color-invalid-rgba;

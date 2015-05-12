@@ -5,8 +5,17 @@
 			<h1 class="content-heading">Events</h1>
 
 			<section class="events-upcoming" ng-if="events.eventsReady">
-				<h3><i class="fa fa-calendar"></i> Upcoming Events</h3>
-				<p class="lead">View / RSVP for upcoming events. Click on an event to view details.</p>
+				<p class="lead">View upcoming events. Click on an event to view details and RSVP.</p>
+
+				<div ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true}).length" class="form-group form-inline">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+						<input id="query" type="text" class="form-control" ng-model="events.query" placeholder="Search events" />
+						<span class="input-group-btn">
+							<button class="btn btn-default" ng-disabled="!events.query" ng-click="events.query=''">&times;</button>
+						</span>
+					</div>
+				</div>
 
 				<table class="events-table table table-responsive" ng-if="(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length">
 					<thead>
@@ -17,7 +26,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="evt in events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
+						<tr ng-repeat="evt in events.allEvents | filter:events.query | filter:{expired: false} | filter:{viewPublic: true} | orderBy:events.sortStartDate" ng-click="events.linkToEvent(evt.$id)" class="events-table-row">
 							<td>{{::evt.title}}</td>
 							<td>{{::evt.startDate | prettyDate}}{{(evt.endDate | prettyDate) !== (evt.startDate | prettyDate) ? ' - ' +
 								(evt.endDate | prettyDate) :
@@ -28,7 +37,7 @@
 				</table>
 
 				<div ng-if="!(events.allEvents | filter:{expired: false} | filter:{viewPublic: true} | filter:events.query).length" class="alert alert-warning">
-					<i class="fa fa-warning"></i> There are no upcoming events.
+					<i class="fa fa-warning"></i> No upcoming events{{events.query ? ' match your search query' : ''}}.
 				</div>
 			</section>
 		</div>
