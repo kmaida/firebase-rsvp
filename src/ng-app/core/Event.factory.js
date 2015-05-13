@@ -56,6 +56,9 @@
 				ampm = timeArr[1],
 				fulldate;
 
+			if (ampm == 'AM' && hours == 12) {
+				hours = 0;
+			}
 			if (ampm == 'PM') {
 				if (hours !== 12) {
 					hours = hours + 12;
@@ -76,10 +79,10 @@
 		 * @returns {boolean}
 		 */
 		function expired(evt) {
-			var jsStartDate = getJSDatetime(evt.endDate, evt.endTime).setHours(0,0,0,0),
-				now = new Date().setHours(0,0,0,0);
+			var jsStartDate = getJSDatetime(evt.startDate, evt.startTime),
+				now = new Date();
 
-			return jsStartDate < now;
+			return jsStartDate.getTime() < now.getTime();
 		}
 
 		/**
