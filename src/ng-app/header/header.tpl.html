@@ -9,12 +9,13 @@
 	<nav ng-if="header.user && header.data" id="nav" class="nav" role="navigation">
 		<ul class="nav-list">
 			<li>
-				<a ng-class="{active: header.indexIsActive('/')}" ng-href="/"><i class="fa fa-calendar"></i> <span
-						class="nav-list-item-text">Events</span></a>
+				<a ng-class="{active: header.indexIsActive('/')}" ng-href="/">
+					<i class="fa fa-calendar fa-fw"></i> <span class="nav-list-item-text">Events</span></a>
 			</li>
 			<li>
-				<a ng-class="{active: header.navIsActive('/account')}" ng-href="/account"><i class="fa fa-user"></i>
-					<span class="nav-list-item-text">My Account</span></a>
+				<a ng-class="{active: header.navIsActive('/account')}" ng-href="/account">
+					<i class="fa fa-user fa-fw"></i> <span class="nav-list-item-text">My Account</span>
+				</a>
 
 				<ul class="nav-list-subnav">
 					<li>
@@ -26,8 +27,9 @@
 				</ul>
 			</li>
 			<li ng-if="header.data.master === header.user.uid">
-				<a ng-class="{active: header.navIsActive('/admin')}" ng-href="/admin"><i class="fa fa-wrench"></i>
-					<span class="nav-list-item-text">Admin</span></a>
+				<a ng-class="{active: header.navIsActive('/admin')}" ng-href="/admin">
+					<i class="fa fa-wrench fa-fw"></i> <span class="nav-list-item-text">Admin</span>
+				</a>
 
 				<ul class="nav-list-subnav">
 					<li>
@@ -39,8 +41,8 @@
 				</ul>
 			</li>
 			<li>
-				<a ng-click="header.logout()"><i class="fa fa-sign-out"></i>
-					<span class="nav-list-item-text">Logout</span></a>
+				<a ng-click="header.logout()">
+					<i class="fa fa-sign-out fa-fw"></i> <span class="nav-list-item-text">Logout</span></a>
 			</li>
 		</ul>
 	</nav>
