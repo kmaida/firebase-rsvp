@@ -127,17 +127,17 @@
 			}
 
 			/**
-			 * Check if event start and end dates are a valid range
-			 * Runs on blur of event dates
+			 * Check if event start and end datetimes are a valid range
+			 * Runs on blur of event dates/times
 			 *
 			 * @returns {boolean}
 			 */
 			ef.validateDaterange = function() {
-				if (ef.formModel && ef.formModel.startDate && ef.formModel.endDate) {
-					var startDate = new Date(ef.formModel.startDate).setHours(0,0,0,0),
-						endDate = new Date(ef.formModel.endDate).setHours(0,0,0,0);
+				if (ef.formModel && ef.formModel.startDate && ef.formModel.startTime && ef.formModel.endDate && ef.formModel.endTime) {
+					var startDatetime = Event.getJSDatetime(ef.formModel.startDate, ef.formModel.startTime),
+						endDatetime = Event.getJSDatetime(ef.formModel.endDate, ef.formModel.endTime);
 
-					ef.validDaterange = startDate <= endDate;
+					ef.validDaterange = (startDatetime.setSeconds(0,0) - endDatetime.setSeconds(0,0)) < 0;
 				}
 			};
 

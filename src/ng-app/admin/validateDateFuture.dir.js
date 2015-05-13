@@ -6,8 +6,6 @@
 		.module('myApp')
 		.directive('validateDateFuture', validateDateFuture);
 
-	validateDateFuture.$inject = ['$timeout', '$location', '$filter', 'Event'];
-
 	function validateDateFuture() {
 
 		validateDateFutureLink.$inject = ['$scope', '$elem', '$attrs', 'ngModel'];
