@@ -42,6 +42,7 @@
 
 		/**
 		 * Get JavaScript Date from event date and time strings
+		 * Robust to gather and normalize data and work with validation coming from different date formats
 		 *
 		 * @param dateStr {string} mm/dd/yyy
 		 * @param timeStr {string} hh:mm AM/PM
