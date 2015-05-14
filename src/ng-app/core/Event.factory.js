@@ -44,31 +44,17 @@
 		 * Get JavaScript Date from event date and time strings
 		 * Robust to gather and normalize data and work with validation coming from different date formats
 		 *
-		 * @param dateStr {string} mm/dd/yyy
+		 * @param date {string|Date}
 		 * @param timeStr {string} hh:mm AM/PM
 		 * @returns {Date}
 		 */
-		function getJSDatetime(dateStr, timeStr) {
-			var d = new Date(dateStr),
-				timeArr = timeStr.split(' '),
-				time = timeArr[0].split(':'),
-				hours = time[0] * 1,
-				minutes = time[1] * 1,
-				ampm = timeArr[1],
-				fulldate;
-
-			if (ampm == 'AM' && hours == 12) {
-				hours = 0;
+		function getJSDatetime(date, timeStr) {
+			if (typeof date === 'string') {
+				return new Date(date + ' ' + timeStr);
+			} else {
+				var dateStr = $filter('date')(date, 'shortDate');
+				return new Date(dateStr + ' ' + timeStr);
 			}
-			if (ampm == 'PM') {
-				if (hours !== 12) {
-					hours = hours + 12;
-				}
-			}
-
-			fulldate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hours, minutes, 0, 0);
-
-			return fulldate;
 		}
 
 		/**
@@ -78,6 +64,8 @@
 		 *
 		 * @param evt {object} event object
 		 * @returns {boolean}
+		 *
+		 * TODO: refactor to accept an event or date/time strings to compare to "now"
 		 */
 		function expired(evt) {
 			var jsStartDate = getJSDatetime(evt.startDate, evt.startTime),
