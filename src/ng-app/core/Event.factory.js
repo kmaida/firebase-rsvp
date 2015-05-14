@@ -58,20 +58,18 @@
 		}
 
 		/**
-		 * Determine if event is expired
-		 * (end date has passed current date)
-		 * Times are ignored because of false positives
+		 * Determine if event is expired:
+		 * Date/time has passed current date/time
 		 *
-		 * @param evt {object} event object
+		 * @param date {string|Date} date
+		 * @param time {string} time
 		 * @returns {boolean}
-		 *
-		 * TODO: refactor to accept an event or date/time strings to compare to "now"
 		 */
-		function expired(evt) {
-			var jsStartDate = getJSDatetime(evt.startDate, evt.startTime),
+		function expired(date, time) {
+			var datetime = getJSDatetime(date, time),
 				now = new Date();
 
-			return jsStartDate.getTime() < now.getTime();
+			return datetime.getTime() < now.getTime();
 		}
 
 		/**
@@ -84,8 +82,7 @@
 			for (var i = 0; i < allEvents.length; i++) {
 				var thisEvt = allEvents[i];
 
-				thisEvt.startDateJS = getJSDatetime(thisEvt.startDate, thisEvt.startTime);
-				thisEvt.expired = expired(thisEvt);
+				thisEvt.expired = expired(thisEvt.startDate, thisEvt.startTime);
 			}
 
 			return allEvents;

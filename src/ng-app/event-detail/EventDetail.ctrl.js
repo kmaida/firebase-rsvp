@@ -107,7 +107,7 @@
 
 			if (event.detail) {
 				event.detail.prettyDate = Event.getPrettyDatetime(event.detail);
-				event.detail.expired = Event.expired(event.detail);
+				event.detail.expired = Event.expired(event.detail.startDate, event.detail.startTime);
 			}
 
 			event.eventReady = true;
