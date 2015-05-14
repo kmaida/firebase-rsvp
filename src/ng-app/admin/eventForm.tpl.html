@@ -197,9 +197,6 @@
 
 	<div class="form-group">
 		<label>RSVP<span class="text-danger">*</span></label>
-		<p class="help-block">
-			<small>NOTE: If the event has ended, users cannot submit / update RSVPs regardless of Open/Closed status below.</small>
-		</p>
 
 		<div class="radio">
 			<label class="radio-inline">
@@ -220,6 +217,10 @@
 
 		<div ng-if="eventForm.rsvp.$invalid" ng-messages="eventForm.rsvp.$error" class="text-danger">
 			<span ng-message="required">RSVP is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="((eventForm.startDate.$valid || !eventForm.startDate.$error.date) && eventForm.startTime.$valid) && ef.futureDatetime.start === false && ef.formModel.rsvp" class="message-invalid text-danger">
+			<strong>The event has already started:</strong> visitors cannot submit / update RSVPs for an expired event. Adjust the event dates/times to re-enable RSVP.</small>
 		</div>
 	</div>
 
