@@ -74,8 +74,8 @@
 			<span ng-message="required">Start time is <strong>required</strong></span>
 		</div>
 
-		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && ef.futureDatetime.start === false" class="message-invalid text-danger">
-			Event has already started; please enter a time in the future
+		<div ng-if="((eventForm.startDate.$valid || !eventForm.startDate.$error.date) && eventForm.startTime.$valid) && ef.futureDatetime.start === false" class="message-invalid text-danger">
+			<strong>Event has already started</strong>: please enter a start date/time in the future
 		</div>
 	</div>
 
@@ -133,8 +133,8 @@
 			<span ng-message="required">End time is <strong>required</strong></span>
 		</div>
 
-		<div ng-if="eventForm.endDate.$valid && eventForm.endTime.$valid && ef.futureDatetime.end === false" class="message-invalid text-danger">
-			Event has already ended; please enter a time in the future
+		<div ng-if="((eventForm.endDate.$valid || !eventForm.endDate.$error.date) && eventForm.endTime.$valid) && ef.futureDatetime.end === false" class="message-invalid text-danger">
+			<strong>Event has already ended</strong>: please enter an end date/time in the future
 		</div>
 
 		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && eventForm.endDate.$valid && eventForm.endTime.$valid && ef.validDaterange === false" class="message-invalid text-danger">

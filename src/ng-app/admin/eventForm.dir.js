@@ -26,6 +26,9 @@
 			if (_isEdit) {
 				events.$loaded().then(function () {
 					ef.formModel = events.$getRecord(ef.prefillModelId);
+
+					ef.validateTimeFuture('start', ef.formModel.startDate, ef.formModel.startTime);
+					ef.validateTimeFuture('end', ef.formModel.endDate, ef.formModel.endTime);
 				});
 			}
 
