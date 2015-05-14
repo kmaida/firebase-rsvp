@@ -39,7 +39,7 @@
 						   min-date="ef.minDate"
 						   datepicker-options="ef.dateOptions"
 						   close-text="Close"
-						   ng-blur="ef.dateBlur(ef.formModel.startDate); ef.startDateBlur(); ef.validateDaterange()"
+						   ng-blur="ef.startDateBlur(); ef.validateDaterange(); eventForm.startDate.$valid && eventForm.startTime.$valid ? ef.validateTimeFuture('start', ef.formModel.startDate, ef.formModel.startTime) : null"
 						   required />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'startDate')"><i class="fa fa-calendar"></i></button>
@@ -57,7 +57,7 @@
 						   class="form-control"
 						   placeholder="h:mm AM/PM"
 						   ng-pattern="ef.timeRegex"
-						   ng-blur="ef.validateDaterange()"
+						   ng-blur="ef.validateDaterange(); eventForm.startDate.$valid && eventForm.startTime.$valid ? ef.validateTimeFuture('start', ef.formModel.startDate, ef.formModel.startTime) : null"
 						   required>
 				</div>
 			</div>
@@ -72,6 +72,10 @@
 		<div ng-if="eventForm.startTime.$dirty && eventForm.startTime.$invalid" ng-messages="eventForm.startTime.$error" class="text-danger">
 			<span ng-message="pattern">Enter a time in 12-hour format <strong>h:mm AM/PM</strong></span>
 			<span ng-message="required">Start time is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && ef.futureDatetime.start === false" class="message-invalid text-danger">
+			Event has already started; please enter a time in the future
 		</div>
 	</div>
 
@@ -94,7 +98,7 @@
 						   min-date="ef.formModel.startDate || ef.minDate"
 						   datepicker-options="ef.dateOptions"
 						   close-text="Close"
-						   ng-blur="ef.validateDaterange()"
+						   ng-blur="ef.validateDaterange(); eventForm.endDate.$valid && eventForm.endTime.$valid ? ef.validateTimeFuture('end', ef.formModel.endDate, ef.formModel.endTime) : null"
 						   required />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ef.toggleDatepicker($event, 'endDate')"><i class="fa fa-calendar"></i></button>
@@ -112,7 +116,7 @@
 						   class="form-control"
 						   placeholder="h:mm AM/PM"
 						   ng-pattern="ef.timeRegex"
-						   ng-blur="ef.validateDaterange()"
+						   ng-blur="ef.validateDaterange(); eventForm.endDate.$valid && eventForm.endTime.$valid ? ef.validateTimeFuture('end', ef.formModel.endDate, ef.formModel.endTime) : null"
 						   required>
 				</div>
 			</div>
@@ -127,6 +131,10 @@
 		<div ng-if="eventForm.endTime.$dirty && eventForm.endTime.$invalid" ng-messages="eventForm.endTime.$error" class="text-danger">
 			<span ng-message="pattern">Enter a time in 12-hour format <strong>h:mm AM/PM</strong></span>
 			<span ng-message="required">End time is <strong>required</strong></span>
+		</div>
+
+		<div ng-if="eventForm.endDate.$valid && eventForm.endTime.$valid && ef.futureDatetime.end === false" class="message-invalid text-danger">
+			Event has already ended; please enter a time in the future
 		</div>
 
 		<div ng-if="eventForm.startDate.$valid && eventForm.startTime.$valid && eventForm.endDate.$valid && eventForm.endTime.$valid && ef.validDaterange === false" class="message-invalid text-danger">
@@ -227,7 +235,7 @@
 	<button type="submit"
 			class="btn-save btn"
 			ng-class="{'btn-primary': !ef.btnSaved, 'btn-success': ef.btnSaved === true, 'btn-danger': ef.btnSaved === 'error'}"
-			ng-disabled="eventForm.$invalid || ef.validDaterange === false">
+			ng-disabled="eventForm.$invalid || ef.validDaterange === false || !ef.futureDatetime.start || !ef.futureDatetime.end">
 		<i class="fa" ng-class="{'fa-download': !ef.btnSaved, 'fa-check': ef.btnSaved, 'fa-ban': ef.btnSaved === 'error'}"></i> {{ef.btnSubmitText}}
 	</button>
 

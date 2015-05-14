@@ -141,6 +141,26 @@
 				}
 			};
 
+			// object stating if date/time is in future
+			ef.futureDatetime = {
+				'start': true,
+				'end': true
+			};
+
+			/**
+			 * Make sure date/time is in the future
+			 * Run on blur if the date and time are valid
+			 *
+			 * @param startEnd {string} 'start' or 'end'
+			 * @param date {string|Date}
+			 * @param time {string}
+			 *
+			 * @returns {boolean}
+			 */
+			ef.validateTimeFuture = function(startEnd, date, time) {
+				ef.futureDatetime[startEnd] = !Event.expired(date, time);
+			};
+
 			/**
 			 * Click submit button
 			 * Submit new event to API
