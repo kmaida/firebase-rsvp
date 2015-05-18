@@ -6,6 +6,10 @@
   RewriteRule ^(.*)$ index.html [L]
 </IfModule>
 
+AddType application/vnd.ms-fontobject eot
+AddType font/truetype ttf
+AddType application/x-font-woff woff
+
 # Allow cross-origin access to web fonts.
 <IfModule mod_headers.c>
 	<FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
