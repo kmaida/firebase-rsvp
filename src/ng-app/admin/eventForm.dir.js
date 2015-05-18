@@ -84,15 +84,6 @@
 				ef.btnSubmitText = _isCreate ? 'Submit' : 'Update';
 			}
 
-			/**
-			 * Go to Events tab
-			 *
-			 * @private
-			 */
-			function _goToEvents() {
-				$location.search('view', 'events');
-			}
-
 			_btnSubmitReset();
 
 			/**
@@ -104,13 +95,24 @@
 				ef.btnSaved = true;
 				ef.btnSubmitText = _isCreate ? 'Saved!' : 'Updated!';
 
+				/**
+				 * Redirect to event ID
+				 *
+				 * @private
+				 */
+				function _goToEvent() {
+					$location.path('/event/' + ef.goToId);
+				}
+
 				if (_isCreate) {
+					ef.goToId = ref.key();
 					ef.showRedirectMsg = true;
-					$timeout(_goToEvents, 2500);
+					$timeout(_goToEvent, 2500);
 				}
 
 				if (_isEdit) {
-					ef.showUpdateDetailLink = true;
+					ef.goToId = ef.formModel.$id;
+					ef.showDetailLink = true;
 					$timeout(_btnSubmitReset, 2500);
 				}
 			}

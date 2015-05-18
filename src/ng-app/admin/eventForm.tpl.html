@@ -240,8 +240,6 @@
 		<i class="fa" ng-class="{'fa-download': !ef.btnSaved, 'fa-check': ef.btnSaved, 'fa-ban': ef.btnSaved === 'error'}"></i> {{ef.btnSubmitText}}
 	</button>
 
-	<span ng-if="ef.showUpdateDetailLink" class="eventForm-updated"> [<a ng-href="/event/{{ef.formModel.$id}}">view
-		event details</a>]</span>
-
-	<span ng-if="ef.showRedirectMsg" class="eventForm-updated"> [returning to Events...]</span>
+	<em ng-if="ef.showRedirectMsg" class="eventForm-updated">Redirecting to <a ng-href="/event/{{ef.goToId}}">{{ef.formModel.title}}</a> event details...</em>
+	<a ng-if="ef.showDetailLink" class="eventForm-updated" ng-href="/event/{{ef.goToId}}">View {{ef.formModel.title}} event details</a>
 </form>
