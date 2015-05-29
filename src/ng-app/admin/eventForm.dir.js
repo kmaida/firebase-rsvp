@@ -9,9 +9,7 @@
 
 	function eventForm(Fire, $timeout, $location, $filter, Event) {
 
-		eventFormCtrl.$inject = ['$scope'];
-
-		function eventFormCtrl($scope) {
+		function eventFormCtrl() {
 			// controllerAs syntax
 			var ef = this;
 
@@ -169,6 +167,7 @@
 			/**
 			 * Click submit button
 			 * Submit new event to API
+			 * Submit updated event to API
 			 * Form @ eventForm.tpl.html
 			 */
 			ef.submitEvent = function() {
@@ -176,7 +175,7 @@
 				ef.formModel.endDate = _formatDate(ef.formModel.endDate);
 
 				/**
-				 * Update RSVPs attached to this event
+				 * Update RSVPs attached to this event if the event title is changed
 				 *
 				 * @private
 				 */
