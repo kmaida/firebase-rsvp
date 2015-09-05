@@ -1,6 +1,6 @@
 {
   "name": "RSVP",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "author": "Kim Maida",
   "description": "RSVP Angular / AngularFire / Firebase application",
   "main": "src/index.html",
@@ -9,7 +9,7 @@
     "url": "https://github.com/kmaida/firebase-rsvp"
   },
   "keywords": [
-    "angular",
+    "angularjs",
     "firebase",
     "angularfire",
     "javascript"

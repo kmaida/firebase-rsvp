@@ -2,13 +2,13 @@
 
 An AngularJS / Firebase / AngularFire single-page application for managing events and RSVPs.
 
-* AngularJS (built with [reStart-angular](https://github.com/kmaida/reStart-angular))
-* Firebase ([Firebase](http://www.firebase.com))
-* AngularFire ([AngularFire v1.0.0](https://www.firebase.com/docs/web/libraries/angular/))
+* AngularJS v1.4.5 (built with [reStart-angular](https://github.com/kmaida/reStart-angular))
+* Firebase v2.2.9 ([Firebase](http://www.firebase.com))
+* AngularFire v1.1.2 ([AngularFire](https://www.firebase.com/docs/web/libraries/angular/))
 * Event iCal (with [ics.js](https://github.com/nwcell/ics.js))
 * FontAwesome (CDN)
 * Bootstrap 3
-* jQuery
+* jQuery v2.1.4
 * Gulp
 
 ## How to Use
@@ -23,7 +23,8 @@ An AngularJS / Firebase / AngularFire single-page application for managing event
 
 #### Setting up dependencies
  
-1. Install [node](https://nodejs.org/), [npm](https://www.npmjs.com/), and [Gulp](http://gulpjs.com/) locally on your machine
+1. Install [node](https://nodejs.org/) (comes packaged with [npm](https://www.npmjs.com/)) and [Gulp](http://gulpjs.com/) locally
+ on your machine
 2. Sign up for a [Firebase account](http://www.firebase.com/account)
   * Create a new app (the free Hacker plan is fine for small apps)
   * Note your app's `URL`
@@ -97,13 +98,14 @@ For basic read/write security, paste the following into the **FIREBASE RULES** f
 
 **Important:** These are very basic rules and can/*should* be expanded. Please see Firebase's documentation on [Securing Your Data](https://www.firebase.com/docs/security/guide/securing-data.html) and [Security API](https://www.firebase.com/docs/security/api/) to learn more about writing your own database rules and validation.
 
-## Future Enhancements
+## Potential Future Enhancements
 
 - [ ] Allow realtime commenting on events
 - [ ] Allow users to subscribe to updates for events
 
 ## Changelog
 
+* **v0.3.0** - 9/05/15: Upgraded Angular, jQuery, Firebase, AngularFire
 * **v0.2.2** - 5/07/15: Bugs resolved, feature-complete for first release
 * **v0.2.1** - 5/02/15: Device tested and most device-related bugs resolved
 * **v0.2.0** - 5/01/15: Closed all priority bugs, deployed to shared hosting with Firebase backend
