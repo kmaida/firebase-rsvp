@@ -51,7 +51,7 @@
 			}
 
 			/**
-			 * Wrap $watch in a function so that it can be re-initialized after it's been deregistered
+			 * Wrap $watch in a function so that it can be re-initialized after it's been unregistered
 			 */
 			function _startWatchAttending() {
 				/**
@@ -64,7 +64,7 @@
 					if (newVal === true && !oldVal && !rf.formModel.guests) {
 						rf.formModel.guests = 1;
 
-						// deregister $watch
+						// unregister $watch
 						_watchAttending();
 					}
 				});
@@ -90,7 +90,7 @@
 			 *
 			 * @private
 			 */
-			function _rsvpSuccess() {
+			function _rsvpSuccess(ref) {
 				rf.btnSaved = true;
 				rf.btnSubmitText = _isCreate ? 'Submitted!' : 'Updated!';
 
@@ -99,6 +99,8 @@
 				// user has submitted an RSVP; update create/edit status in case they edit without refreshing
 				_isCreate = false;
 				_isEdit = true;
+
+				rf.formModelId = ref.key();
 
 				// restart $watch on rf.formModel.attending
 				_startWatchAttending();
