@@ -69,8 +69,6 @@
 			var datetime = getJSDatetime(date, time),
 				now = new Date();
 
-			console.log('expired:', date, time, now, datetime.getTime(), now.getTime(), datetime.getTime() < now.getTime());
-
 			return datetime.getTime() < now.getTime();
 		}
 
